@@ -1,0 +1,42 @@
+# Node.js
+node_modules/
+package-lock.json
+npm-debug.log
+yarn-error.log
+dist/
+dist-ssr
+coverage
+*.local
+
+# Mac OS
+.DS_Store
+
+# Logs
+logs
+*.log
+*.log.*
+*.access
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# dotenv environment file
+.env
+
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
