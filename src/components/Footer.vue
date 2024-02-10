@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 
 <template>
   <div>
-    <section class="bg-zinc-100 dark:bg-zinc-800 py-8 px-4 sm:px-6 lg:px-8">
+    <section class="bg-zinc-100 dark:bg-zinc-900 py-8 px-4 sm:px-6 lg:px-8">
       <div
         class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:space-x-12"
       >

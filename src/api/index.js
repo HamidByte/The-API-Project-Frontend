@@ -72,5 +72,29 @@ export const api = {
       // console.error('Error registering user:', error)
       throw new Error('An unexpected error occurred during registration. Please try again later.')
     }
+  },
+
+  async getUser() {
+    try {
+      const response = await axios.get(`http://localhost:3000/get-user`, {
+        // Set the `withCredentials` option to `true` to include credentials (cookies)
+        withCredentials: true
+      })
+
+      // Get user data from the response
+      const userData = response.data
+
+      return userData
+    } catch (error) {
+      // If the response has an error message, include it in the error object
+      if (error.response && error.response.data && error.response.data.error) {
+        throw error.response.data.error
+      }
+      // eslint-disable-next-line no-console
+      // console.error('Error fetching user data:', error)
+      throw new Error(
+        'An unexpected error occurred during fetching user data. Please try again later.'
+      )
+    }
   }
 }

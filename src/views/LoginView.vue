@@ -8,6 +8,8 @@ import { api } from '@/api'
 
 const { toast } = useToast()
 
+import { useUserStore } from '@/stores/index'
+
 export default {
   components: { Toaster, UserLogin },
   data: () => {
@@ -15,12 +17,15 @@ export default {
   },
   methods: {
     async handleLogin(event) {
+      const userStore = useUserStore()
+
       try {
         this.email = event.email
         this.password = event.password
         const result = await api.loginUser(this.email, this.password)
 
-        console.log(result)
+        // Store user information in the user store
+        userStore.setUser(result)
 
         // Redirect to a new route or perform any other actions
         this.$router.push('/dashboard')
