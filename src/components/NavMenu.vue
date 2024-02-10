@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import MenuIcon from '@/components/icons/MenuIcon.vue'
 import ShirtIcon from '@/components/icons/ShirtIcon.vue'
+import ToggleDarkMode from '@/components/ToggleDarkMode.vue'
 
 const router = useRouter()
 
@@ -109,10 +110,12 @@ const logout = () => {
       </NavigationMenuList>
     </NavigationMenu>
     <div class="ml-auto flex gap-2" v-if="!isAuthenticated()">
+      <ToggleDarkMode />
       <Button variant="outline" @click="goToLogin">Sign in</Button>
       <Button @click="goToRegister">Sign Up</Button>
     </div>
     <div class="ml-auto flex gap-2" v-else>
+      <ToggleDarkMode />
       <Button @click="logout">Logout</Button>
     </div>
   </header>
