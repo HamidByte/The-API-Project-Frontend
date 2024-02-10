@@ -3,6 +3,8 @@ import axios from 'axios'
 // Set the `withCredentials` option to `true` to include credentials (cookies)
 // axios.defaults.withCredentials = true
 
+import { storeUserId } from '@/lib/authUtils'
+
 export const api = {
   async loginUser(email, password) {
     try {
@@ -21,11 +23,8 @@ export const api = {
       // Get user data from the response
       const userData = response.data
 
-      // Store userId in session storage
-      sessionStorage.setItem('userId', JSON.stringify(userData.uuid))
-
-      // Store userId in cookies (optional)
-      // document.cookie = `userId=${JSON.stringify(userData.uuid)}; path=/`
+      // Store userId in sessionStorage and localStorage
+      storeUserId(userData.uuid)
 
       return userData
     } catch (error) {
@@ -56,11 +55,8 @@ export const api = {
       // Get user data from the response
       const userData = response.data
 
-      // Store userId in session storage
-      sessionStorage.setItem('userId', JSON.stringify(userData.uuid))
-
-      // Store userId in cookies (optional)
-      // document.cookie = `userId=${JSON.stringify(userData.uuid)}; path=/`
+      // Store userId in sessionStorage and localStorage
+      storeUserId(userData.uuid)
 
       return userData
     } catch (error) {

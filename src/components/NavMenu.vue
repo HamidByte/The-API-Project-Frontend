@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
+import { isAuthenticated, clearUserId } from '@/lib/authUtils'
 
 import { Button } from '@/components/ui/button'
 import { SheetTrigger, SheetContent, Sheet } from '@/components/ui/sheet'
@@ -14,11 +15,6 @@ import ToggleDarkMode from '@/components/ToggleDarkMode.vue'
 
 const router = useRouter()
 
-const isAuthenticated = () => {
-  const userId = sessionStorage.getItem('userId')
-  return !!userId
-}
-
 const goToLogin = () => {
   router.push('/login')
 }
@@ -28,13 +24,9 @@ const goToRegister = () => {
 }
 
 const logout = () => {
-  // Remove userId from session storage
-  sessionStorage.removeItem('userId')
+  clearUserId()
 
-  // Optionally, you can also clear the cookies if you stored userId in cookies
-  // document.cookie = 'userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
-  // Redirect to the login page or any other desired page
+  // Redirect to the login page
   goToLogin()
 }
 </script>
