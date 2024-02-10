@@ -37,9 +37,6 @@ export default {
         })
       }
     }
-    // goToRegister() {
-    //   this.$router.push('/register')
-    // }
   }
 }
 </script>
@@ -89,7 +86,7 @@ export default {
           <h1 class="text-2xl font-semibold tracking-tight">Login</h1>
           <p class="text-sm text-muted-foreground">Enter your email and password below to login</p>
         </div>
-        <UserLogin v-model:email="email" v-model:password="password" @submit="handleLogin" />
+        <UserLogin @submit="handleLogin" />
       </div>
     </div>
   </div>

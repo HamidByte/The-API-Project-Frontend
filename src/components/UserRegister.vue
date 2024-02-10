@@ -1,15 +1,14 @@
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-const { email, password } = defineProps(['email', 'password'])
 const emit = defineEmits(['submit'])
 
-const localEmail = ref(email || '')
-const localPassword = ref(password || '')
+const localEmail = ref('')
+const localPassword = ref('')
 const isLoading = ref(false)
 
 async function onSubmit() {

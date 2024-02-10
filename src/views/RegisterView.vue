@@ -32,9 +32,6 @@ export default {
         })
       }
     }
-    // goToLogin() {
-    //   this.$router.push('/login')
-    // }
   }
 }
 </script>
@@ -86,7 +83,7 @@ export default {
             Enter your email and password below to create your account
           </p>
         </div>
-        <UserRegister v-model:email="email" v-model:password="password" @submit="handleRegister" />
+        <UserRegister @submit="handleRegister" />
       </div>
     </div>
   </div>
