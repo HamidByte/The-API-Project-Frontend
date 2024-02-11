@@ -2,6 +2,10 @@
 
 TheAPIProject is a versatile and affordable API platform designed to provide developers with easy access to a diverse range of services. Initially conceived as a "Random Quote Generator API" the project is expanding its vision to encompass a rich collection of data services. Upcoming releases include GIFs, Dummy or Mock APIs for testing, Jokes, and more. With a focus on affordability and simplicity, TheAPIProject stands as the go-to solution for developers seeking dynamic content.
 
+## Backend Repository
+
+For the corresponding backend, visit the [The API Project](https://github.com/HamidByte/The-API-Project).
+
 ## API Documentation
 
 Explore the API documentation on [Postman](https://www.postman.com/hamidbyte/workspace/the-api-project/overview).
