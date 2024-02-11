@@ -1,12 +1,12 @@
 <script setup>
-import FormsLayout from '@/components/layouts/FormsLayout.vue'
-import ProfileForm from '@/components/settings/ProfileForm.vue'
+import SettingsLayout from '@/components/layouts/SettingsLayout.vue'
+import ProfileSettings from '@/components/settings/ProfileSettings.vue'
 </script>
 
 <template>
   <div>
-    <FormsLayout>
-      <ProfileForm />
-    </FormsLayout>
+    <SettingsLayout>
+      <ProfileSettings />
+    </SettingsLayout>
   </div>
 </template>

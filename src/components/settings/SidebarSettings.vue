@@ -1,30 +1,32 @@
 <script setup>
 import { useRoute } from 'vue-router'
+import * as ROUTES from '@/lib/definitions/routes/main'
+
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
 const route = useRoute()
 
-const sidebarNavItems = [
+const sidebarSettingsItems = [
   {
     title: 'Profile',
-    href: '/settings/profile'
+    href: ROUTES.profile.path
   },
   {
     title: 'Account',
-    href: '/settings/account'
+    href: ROUTES.account.path
   },
   {
     title: 'Appearance',
-    href: '/settings/appearance'
+    href: ROUTES.appearance.path
   },
   {
     title: 'Notifications',
-    href: '/settings/notifications'
+    href: ROUTES.notifications.path
   },
   {
     title: 'Display',
-    href: '/settings/display'
+    href: ROUTES.display.path
   }
 ]
 </script>
@@ -32,7 +34,7 @@ const sidebarNavItems = [
 <template>
   <nav class="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
     <Button
-      v-for="item in sidebarNavItems"
+      v-for="item in sidebarSettingsItems"
       :key="item.title"
       as="a"
       :href="item.href"

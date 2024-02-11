@@ -19,7 +19,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 
-const notificationsFormSchema = toTypedSchema(
+const notificationsSettingsSchema = toTypedSchema(
   z.object({
     type: z.enum(['all', 'mentions', 'none'], {
       required_error: 'You need to select a notification type.'
@@ -33,7 +33,7 @@ const notificationsFormSchema = toTypedSchema(
 )
 
 const { handleSubmit } = useForm({
-  validationSchema: notificationsFormSchema,
+  validationSchema: notificationsSettingsSchema,
   initialValues: {
     communication_emails: false,
     marketing_emails: false,

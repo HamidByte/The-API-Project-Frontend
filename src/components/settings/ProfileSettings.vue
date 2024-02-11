@@ -30,7 +30,7 @@ import { toast } from '@/components/ui/toast'
 
 const verifiedEmails = ref(['m@example.com', 'm@google.com', 'm@support.com'])
 
-const profileFormSchema = toTypedSchema(
+const profileSettingsSchema = toTypedSchema(
   z.object({
     username: z
       .string()
@@ -60,7 +60,7 @@ const profileFormSchema = toTypedSchema(
 )
 
 const { handleSubmit, resetForm } = useForm({
-  validationSchema: profileFormSchema,
+  validationSchema: profileSettingsSchema,
   initialValues: {
     bio: 'I own a computer.',
     urls: [{ value: 'https://shadcn.com' }, { value: 'http://twitter.com/shadcn' }]

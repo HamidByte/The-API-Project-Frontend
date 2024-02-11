@@ -19,7 +19,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 
-const appearanceFormSchema = toTypedSchema(
+const appearanceSettingsSchema = toTypedSchema(
   z.object({
     theme: z.enum(['light', 'dark'], {
       required_error: 'Please select a theme.'
@@ -32,7 +32,7 @@ const appearanceFormSchema = toTypedSchema(
 )
 
 const { handleSubmit } = useForm({
-  validationSchema: appearanceFormSchema,
+  validationSchema: appearanceSettingsSchema,
   initialValues: {
     theme: 'light',
     font: 'inter'

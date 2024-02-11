@@ -45,7 +45,7 @@ const languages = [
   { label: 'Chinese', value: 'zh' }
 ]
 
-const accountFormSchema = toTypedSchema(
+const accountSettingsSchema = toTypedSchema(
   z.object({
     name: z
       .string()
@@ -91,7 +91,7 @@ async function onSubmit(values) {
   <Separator />
   <Form
     v-slot="{ setValues }"
-    :validation-schema="accountFormSchema"
+    :validation-schema="accountSettingsSchema"
     class="space-y-8"
     @submit="onSubmit"
   >

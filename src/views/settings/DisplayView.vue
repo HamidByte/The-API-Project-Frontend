@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import FormsLayout from '@/components/layouts/FormsLayout.vue'
-import DisplayForm from '@/components/settings/DisplayForm.vue'
+import SettingsLayout from '@/components/layouts/SettingsLayout.vue'
+import DisplaySettings from '@/components/settings/DisplaySettings.vue'
 </script>
 
 <template>
-  <FormsLayout>
-    <DisplayForm />
-  </FormsLayout>
+  <SettingsLayout>
+    <DisplaySettings />
+  </SettingsLayout>
 </template>

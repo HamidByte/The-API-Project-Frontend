@@ -4,7 +4,11 @@ import * as ROUTES from '@/lib/definitions/routes/main'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-import DashboardView from '@/views/DashboardView.vue'
+
+// Dashboard
+import DashboardView from '@/views/dashboard/DashboardView.vue'
+import ApiKeyView from '@/views/dashboard/ApiKeyView.vue'
+import TestApiView from '@/views/dashboard/TestApiView.vue'
 
 // Settings
 import ProfileView from '@/views/settings/ProfileView.vue'
@@ -62,6 +66,36 @@ const router = createRouter({
       path: ROUTES.dashboard.path,
       name: ROUTES.dashboard.name,
       component: DashboardView,
+      beforeEnter: (to, from, next) => {
+        // Check if the user is authenticated
+        if (isAuthenticated()) {
+          // User is authenticated, allow access to the dashboard route
+          next()
+        } else {
+          // User is not authenticated, redirect to login route
+          next(ROUTES.login.path) // Redirect to the login route
+        }
+      }
+    },
+    {
+      path: ROUTES.apiKey.path,
+      name: ROUTES.apiKey.name,
+      component: ApiKeyView,
+      beforeEnter: (to, from, next) => {
+        // Check if the user is authenticated
+        if (isAuthenticated()) {
+          // User is authenticated, allow access to the dashboard route
+          next()
+        } else {
+          // User is not authenticated, redirect to login route
+          next(ROUTES.login.path) // Redirect to the login route
+        }
+      }
+    },
+    {
+      path: ROUTES.testApi.path,
+      name: ROUTES.testApi.name,
+      component: TestApiView,
       beforeEnter: (to, from, next) => {
         // Check if the user is authenticated
         if (isAuthenticated()) {

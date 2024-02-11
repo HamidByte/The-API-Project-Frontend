@@ -44,7 +44,7 @@ const items = [
   }
 ]
 
-const displayFormSchema = toTypedSchema(
+const displaySettingsSchema = toTypedSchema(
   z.object({
     items: z.array(z.string()).refine((value) => value.some((item) => item), {
       message: 'You have to select at least one item.'
@@ -53,7 +53,7 @@ const displayFormSchema = toTypedSchema(
 )
 
 const { handleSubmit } = useForm({
-  validationSchema: displayFormSchema,
+  validationSchema: displaySettingsSchema,
   initialValues: {
     items: ['recents', 'home']
   }

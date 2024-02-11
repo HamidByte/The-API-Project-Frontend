@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import FormsLayout from '@/components/layouts/FormsLayout.vue'
-import NotificationsForm from '@/components/settings/NotificationsForm.vue'
+import SettingsLayout from '@/components/layouts/SettingsLayout.vue'
+import NotificationsSettings from '@/components/settings/NotificationsSettings.vue'
 </script>
 
 <template>
-  <FormsLayout>
-    <NotificationsForm />
-  </FormsLayout>
+  <SettingsLayout>
+    <NotificationsSettings />
+  </SettingsLayout>
 </template>
