@@ -1,10 +1,12 @@
 <script>
+import * as ROUTES from '@/lib/definitions/routes/main'
+import { api } from '@/api'
+
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { useToast } from '@/components/ui/toast/use-toast'
 import UserRegister from '@/components/UserRegister.vue'
-import { api } from '@/api'
 
 const { toast } = useToast()
 
@@ -20,10 +22,13 @@ export default {
         this.password = event.password
         const result = await api.registerUser(this.email, this.password)
 
-        console.log(result)
+        toast({
+          title: 'Hooray! Operation Successful!',
+          description: result.message
+        })
 
         // Redirect to a new route or perform any other actions
-        this.$router.push('/dashboard')
+        this.$router.push(ROUTES.activate.path)
       } catch (error) {
         this.registerError = error
         toast({

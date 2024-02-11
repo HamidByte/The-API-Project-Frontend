@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
 import { isAuthenticated, clearUserId } from '@/lib/authUtils'
+import * as ROUTES from '@/lib/definitions/routes/main'
 
 import { Button } from '@/components/ui/button'
 import { SheetTrigger, SheetContent, Sheet } from '@/components/ui/sheet'
@@ -16,11 +17,11 @@ import ToggleDarkMode from '@/components/ToggleDarkMode.vue'
 const router = useRouter()
 
 const goToLogin = () => {
-  router.push('/login')
+  router.push(ROUTES.login.path)
 }
 
 const goToRegister = () => {
-  router.push('/register')
+  router.push(ROUTES.register.path)
 }
 
 const logout = () => {
@@ -41,27 +42,39 @@ const logout = () => {
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
-        <RouterLink to="/">
+        <RouterLink :to="ROUTES.home.path">
           <ShirtIcon class="h-6 w-6" />
           <span class="sr-only">ShadCN</span>
         </RouterLink>
         <div class="grid gap-2 py-6">
-          <RouterLink class="flex w-full items-center py-2 text-lg font-semibold" to="/">
+          <RouterLink
+            class="flex w-full items-center py-2 text-lg font-semibold"
+            :to="ROUTES.home.path"
+          >
             Home
           </RouterLink>
-          <RouterLink class="flex w-full items-center py-2 text-lg font-semibold" to="/dashboard">
+          <RouterLink
+            class="flex w-full items-center py-2 text-lg font-semibold"
+            :to="ROUTES.dashboard.path"
+          >
             Dashboard
           </RouterLink>
-          <RouterLink class="flex w-full items-center py-2 text-lg font-semibold" to="/contact">
+          <RouterLink
+            class="flex w-full items-center py-2 text-lg font-semibold"
+            :to="ROUTES.contact.path"
+          >
             Contact
           </RouterLink>
-          <RouterLink class="flex w-full items-center py-2 text-lg font-semibold" to="/about">
+          <RouterLink
+            class="flex w-full items-center py-2 text-lg font-semibold"
+            :to="ROUTES.about.path"
+          >
             About
           </RouterLink>
         </div>
       </SheetContent>
     </Sheet>
-    <RouterLink class="mr-6 hidden lg:flex" to="/">
+    <RouterLink class="mr-6 hidden lg:flex" :to="ROUTES.home.path">
       <ShirtIcon class="h-6 w-6" />
       <span class="sr-only">ShadCN</span>
     </RouterLink>
@@ -70,7 +83,7 @@ const logout = () => {
         <NavigationMenuLink asChild>
           <RouterLink
             class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            to="/"
+            :to="ROUTES.home.path"
           >
             Home
           </RouterLink>
@@ -78,7 +91,7 @@ const logout = () => {
         <NavigationMenuLink asChild>
           <RouterLink
             class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            to="/dashboard"
+            :to="ROUTES.dashboard.path"
           >
             Dashboard
           </RouterLink>
@@ -86,7 +99,7 @@ const logout = () => {
         <NavigationMenuLink asChild>
           <RouterLink
             class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            to="/contact"
+            :to="ROUTES.contact.path"
           >
             Contact
           </RouterLink>
@@ -94,7 +107,7 @@ const logout = () => {
         <NavigationMenuLink asChild>
           <RouterLink
             class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            to="/about"
+            :to="ROUTES.about.path"
           >
             About
           </RouterLink>

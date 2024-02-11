@@ -9,6 +9,7 @@ import autoprefixer from 'autoprefixer'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  envPrefix: 'APP_',
   css: {
     postcss: {
       plugins: [tailwind(), autoprefixer()]
@@ -18,5 +19,8 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    sourcemap: true
   }
 })

@@ -1,13 +1,17 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import moment from 'moment'
+import * as ROUTES from '@/lib/definitions/routes/main'
+import { api } from '@/api'
+import { useUserStore } from '@/stores'
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { useToast } from '@/components/ui/toast/use-toast'
 import Sidebar from '@/components/Sidebar.vue'
-import { api } from '@/api'
-import { useUserStore } from '@/stores/index'
 
+const router = useRouter()
 const userStore = useUserStore()
 const { toast } = useToast()
 const currentUser = ref(null)
@@ -17,6 +21,9 @@ const fetchUserData = async () => {
   try {
     const userData = await api.getUser()
     userStore.setUser(userData)
+    if (!userData.isActive) {
+      router.push(ROUTES.activate.path)
+    }
   } catch (error) {
     toast({
       title: 'Uh oh! Something went wrong.',
@@ -54,7 +61,7 @@ const subscriptionStatus = computed(() => {
   return currentUser.value.subscriptionStatus === 'free' ? 'Free' : ''
 })
 
-const isUserActive = computed(() => {
+const userActivationStatus = computed(() => {
   return currentUser.value.isActive ? 'Active' : 'Inactive'
 })
 </script>
@@ -180,7 +187,7 @@ const isUserActive = computed(() => {
                         </svg>
                       </CardHeader>
                       <CardContent>
-                        <div class="text-2xl font-bold">{{ isUserActive }}</div>
+                        <div class="text-2xl font-bold">{{ userActivationStatus }}</div>
                         <p class="text-xs text-muted-foreground">Current status of the user</p>
                       </CardContent>
                     </Card>

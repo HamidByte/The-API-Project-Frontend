@@ -1,14 +1,15 @@
 <script>
+import * as ROUTES from '@/lib/definitions/routes/main'
+import { api } from '@/api'
+
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Toaster from '@/components/ui/toast/Toaster.vue'
 import { useToast } from '@/components/ui/toast/use-toast'
 import UserLogin from '@/components/UserLogin.vue'
-import { api } from '@/api'
 
 const { toast } = useToast()
-
-import { useUserStore } from '@/stores/index'
+import { useUserStore } from '@/stores'
 
 export default {
   components: { Toaster, UserLogin },
@@ -22,13 +23,16 @@ export default {
       try {
         this.email = event.email
         this.password = event.password
-        const result = await api.loginUser(this.email, this.password)
+        const user = await api.loginUser(this.email, this.password)
 
         // Store user information in the user store
-        userStore.setUser(result)
+        userStore.setUser(user)
 
-        // Redirect to a new route or perform any other actions
-        this.$router.push('/dashboard')
+        if (user.isActive) {
+          this.$router.push(ROUTES.dashboard.path)
+        } else {
+          this.$router.push(ROUTES.activate.path)
+        }
       } catch (error) {
         this.loginError = error
         toast({

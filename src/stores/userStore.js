@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: null
+    user: null,
+    isUserActive: false
   }),
   getters: {
     isLoggedIn: (state) => !!state.user
@@ -13,6 +14,9 @@ export const useUserStore = defineStore('user', {
     },
     clearUser() {
       this.user = null
+    },
+    setIsUserActive(isActive) {
+      this.isUserActive = isActive
     }
   }
 })

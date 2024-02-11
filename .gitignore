@@ -7,6 +7,7 @@ dist/
 dist-ssr
 coverage
 *.local
+.cache/
 
 # Mac OS
 .DS_Store
@@ -23,7 +24,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # dotenv environment file
-.env
+.env*
 
 # Cypress
 /cypress/videos/

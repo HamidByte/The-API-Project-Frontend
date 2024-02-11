@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { isAuthenticated } from '@/lib/authUtils'
+import * as ROUTES from '@/lib/definitions/routes/main'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
@@ -16,20 +17,20 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: ROUTES.home.path,
+      name: ROUTES.home.name,
       component: HomeView
     },
     {
-      path: '/login',
-      name: 'login',
+      path: ROUTES.login.path,
+      name: ROUTES.login.name,
       component: LoginView,
       meta: { hideNavigation: true },
       beforeEnter: (to, from, next) => {
         // Check if the user is already authenticated
         if (isAuthenticated()) {
           // User is already authenticated, redirect to dashboard route
-          next('/dashboard')
+          next(ROUTES.dashboard.path)
         } else {
           // User is not authenticated, allow access to the login route
           next()
@@ -37,15 +38,15 @@ const router = createRouter({
       }
     },
     {
-      path: '/register',
-      name: 'register',
+      path: ROUTES.register.path,
+      name: ROUTES.register.name,
       component: RegisterView,
       meta: { hideNavigation: true },
       beforeEnter: (to, from, next) => {
         // Check if the user is already authenticated
         if (isAuthenticated()) {
           // User is already authenticated, redirect to dashboard route
-          next('/dashboard')
+          next(ROUTES.dashboard.path)
         } else {
           // User is not authenticated, allow access to the register route
           next()
@@ -53,8 +54,13 @@ const router = createRouter({
       }
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
+      path: ROUTES.activate.path,
+      name: ROUTES.activate.name,
+      component: () => import('@/views/ActivateView.vue')
+    },
+    {
+      path: ROUTES.dashboard.path,
+      name: ROUTES.dashboard.name,
       component: DashboardView,
       beforeEnter: (to, from, next) => {
         // Check if the user is authenticated
@@ -63,95 +69,95 @@ const router = createRouter({
           next()
         } else {
           // User is not authenticated, redirect to login route
-          next('/login') // Redirect to the login route
+          next(ROUTES.login.path) // Redirect to the login route
         }
       }
     },
     {
-      path: '/contact',
-      name: 'contact',
+      path: ROUTES.contact.path,
+      name: ROUTES.contact.name,
       component: () => import('../views/ContactView.vue')
     },
     {
-      path: '/about',
-      name: 'about',
+      path: ROUTES.about.path,
+      name: ROUTES.about.name,
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/settings',
-      name: 'settings',
+      path: ROUTES.settings.path,
+      name: ROUTES.settings.name,
       component: ProfileView,
       beforeEnter: (to, from, next) => {
         // Check if the user is authenticated
         if (isAuthenticated()) {
           // User is authenticated, redirect to /settings/profile
-          next('/settings/profile')
+          next(ROUTES.profile.path)
         } else {
           // User is not authenticated, redirect to login route
-          next('/login')
+          next(ROUTES.login.path)
         }
       }
     },
     {
-      path: '/settings/profile',
-      name: 'profile',
+      path: ROUTES.profile.path,
+      name: ROUTES.profile.name,
       component: ProfileView,
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) {
           next()
         } else {
-          next('/login')
+          next(ROUTES.login.path)
         }
       }
     },
     {
-      path: '/settings/account',
-      name: 'account',
+      path: ROUTES.account.path,
+      name: ROUTES.account.name,
       component: AccountView,
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) {
           next()
         } else {
-          next('/login')
+          next(ROUTES.login.path)
         }
       }
     },
     {
-      path: '/settings/appearance',
-      name: 'appearance',
+      path: ROUTES.appearance.path,
+      name: ROUTES.appearance.name,
       component: AppearanceView,
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) {
           next()
         } else {
-          next('/login')
+          next(ROUTES.login.path)
         }
       }
     },
     {
-      path: '/settings/notifications',
-      name: 'notifications',
+      path: ROUTES.notifications.path,
+      name: ROUTES.notifications.name,
       component: NotificationsView,
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) {
           next()
         } else {
-          next('/login')
+          next(ROUTES.login.path)
         }
       }
     },
     {
-      path: '/settings/display',
-      name: 'display',
+      path: ROUTES.display.path,
+      name: ROUTES.display.name,
       component: DisplayView,
       beforeEnter: (to, from, next) => {
         if (isAuthenticated()) {
           next()
         } else {
-          next('/login')
+          next(ROUTES.login.path)
         }
       }
     }
