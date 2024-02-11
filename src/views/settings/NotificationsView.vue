@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import FormsLayout from '@/components/layouts/FormsLayout.vue'
-import AppearanceForm from '@/components/AppearanceForm.vue'
+import NotificationsForm from '@/components/settings/NotificationsForm.vue'
 </script>
 
 <template>
   <FormsLayout>
-    <AppearanceForm />
+    <NotificationsForm />
   </FormsLayout>
 </template>

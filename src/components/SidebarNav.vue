@@ -45,6 +45,7 @@ const sidebarNavItems = [
       "
     >
       {{ item.title }}
+      <span class="ml-4 text-orange-600" style="font-size: 10px">(coming soon)</span>
     </Button>
   </nav>
 </template>

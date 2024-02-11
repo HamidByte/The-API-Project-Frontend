@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
-import { isAuthenticated, clearUserId } from '@/lib/authUtils'
+import { isAuthenticated } from '@/lib/authUtils'
 import * as ROUTES from '@/lib/definitions/routes/main'
 
 import { Button } from '@/components/ui/button'
@@ -10,6 +10,7 @@ import {
   NavigationMenuList,
   NavigationMenu
 } from '@/components/ui/navigation-menu'
+import UserNav from '@/components/UserNav.vue'
 import MenuIcon from '@/components/icons/MenuIcon.vue'
 import ShirtIcon from '@/components/icons/ShirtIcon.vue'
 import ToggleDarkMode from '@/components/ToggleDarkMode.vue'
@@ -23,17 +24,11 @@ const goToLogin = () => {
 const goToRegister = () => {
   router.push(ROUTES.register.path)
 }
-
-const logout = () => {
-  clearUserId()
-
-  // Redirect to the login page
-  goToLogin()
-}
 </script>
 
 <template>
   <header class="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+    <!-- MainNav -->
     <Sheet>
       <SheetTrigger asChild>
         <Button class="lg:hidden" size="icon" variant="outline">
@@ -114,14 +109,15 @@ const logout = () => {
         </NavigationMenuLink>
       </NavigationMenuList>
     </NavigationMenu>
-    <div class="ml-auto flex gap-2" v-if="!isAuthenticated()">
+    <!-- UserNav -->
+    <div class="ml-auto flex items-center gap-2" v-if="!isAuthenticated()">
       <ToggleDarkMode />
       <Button variant="outline" @click="goToLogin">Sign in</Button>
       <Button @click="goToRegister">Sign Up</Button>
     </div>
-    <div class="ml-auto flex gap-2" v-else>
+    <div class="ml-auto flex items-center gap-2" v-else>
       <ToggleDarkMode />
-      <Button @click="logout">Logout</Button>
+      <UserNav />
     </div>
   </header>
 </template>

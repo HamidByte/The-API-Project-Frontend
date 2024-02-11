@@ -41,7 +41,7 @@ import { Button } from '@/components/ui/button'
           </RouterLink>
 
           <p class="text-md font-bold text-gray-600 dark:text-gray-300">
-            © 2024 Acme Inc. All rights reserved.
+            © 2024 The API Project. All rights reserved.
           </p>
         </div>
       </div>

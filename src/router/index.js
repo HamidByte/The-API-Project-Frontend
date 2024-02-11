@@ -7,11 +7,11 @@ import RegisterView from '@/views/RegisterView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 
 // Settings
-import ProfileView from '@/views/ProfileView.vue'
-import AccountView from '@/views/AccountView.vue'
-import AppearanceView from '@/views/AppearanceView.vue'
-import NotificationsView from '@/views/NotificationsView.vue'
-import DisplayView from '@/views/DisplayView.vue'
+import ProfileView from '@/views/settings/ProfileView.vue'
+import AccountView from '@/views/settings//AccountView.vue'
+import AppearanceView from '@/views/settings//AppearanceView.vue'
+import NotificationsView from '@/views/settings//NotificationsView.vue'
+import DisplayView from '@/views/settings//DisplayView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
