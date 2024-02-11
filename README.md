@@ -21,6 +21,24 @@ Before you begin, ensure you have met the following requirements:
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
+## Environment Variable Configuration
+
+Create two files: `.env.development` and `.env.production.` and populate these files with the following variables, replacing the placeholder values with your actual values.
+
+**.env.development:**
+
+```bash
+APP_BASE_URL_FRONTEND=http://localhost:5173
+APP_BASE_URL_SERVER=http://localhost:3000
+```
+
+**.env.production:**
+
+```bash
+APP_BASE_URL_FRONTEND=your-base-url
+APP_BASE_URL_SERVER=your-base-url
+```
+
 ## Project Setup
 
 ```sh
@@ -37,6 +55,12 @@ npm run dev
 
 ```sh
 npm run build
+```
+
+and
+
+```sh
+npm run preview
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
