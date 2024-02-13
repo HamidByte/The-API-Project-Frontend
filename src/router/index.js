@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { isAuthenticated } from '@/lib/authUtils'
+import { useUserStore } from '@/stores'
+import { api } from '@/api'
 import * as ROUTES from '@/lib/definitions/routes/main'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
+import ActivateView from '@/views/ActivateView.vue'
 
 // Dashboard
 import DashboardView from '@/views/dashboard/DashboardView.vue'
@@ -26,88 +29,6 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: ROUTES.login.path,
-      name: ROUTES.login.name,
-      component: LoginView,
-      meta: { hideNavigation: true },
-      beforeEnter: (to, from, next) => {
-        // Check if the user is already authenticated
-        if (isAuthenticated()) {
-          // User is already authenticated, redirect to dashboard route
-          next(ROUTES.dashboard.path)
-        } else {
-          // User is not authenticated, allow access to the login route
-          next()
-        }
-      }
-    },
-    {
-      path: ROUTES.register.path,
-      name: ROUTES.register.name,
-      component: RegisterView,
-      meta: { hideNavigation: true },
-      beforeEnter: (to, from, next) => {
-        // Check if the user is already authenticated
-        if (isAuthenticated()) {
-          // User is already authenticated, redirect to dashboard route
-          next(ROUTES.dashboard.path)
-        } else {
-          // User is not authenticated, allow access to the register route
-          next()
-        }
-      }
-    },
-    {
-      path: ROUTES.activate.path,
-      name: ROUTES.activate.name,
-      component: () => import('@/views/ActivateView.vue')
-    },
-    {
-      path: ROUTES.dashboard.path,
-      name: ROUTES.dashboard.name,
-      component: DashboardView,
-      beforeEnter: (to, from, next) => {
-        // Check if the user is authenticated
-        if (isAuthenticated()) {
-          // User is authenticated, allow access to the dashboard route
-          next()
-        } else {
-          // User is not authenticated, redirect to login route
-          next(ROUTES.login.path) // Redirect to the login route
-        }
-      }
-    },
-    {
-      path: ROUTES.apiKey.path,
-      name: ROUTES.apiKey.name,
-      component: ApiKeyView,
-      beforeEnter: (to, from, next) => {
-        // Check if the user is authenticated
-        if (isAuthenticated()) {
-          // User is authenticated, allow access to the dashboard route
-          next()
-        } else {
-          // User is not authenticated, redirect to login route
-          next(ROUTES.login.path) // Redirect to the login route
-        }
-      }
-    },
-    {
-      path: ROUTES.testApi.path,
-      name: ROUTES.testApi.name,
-      component: TestApiView,
-      beforeEnter: (to, from, next) => {
-        // Check if the user is authenticated
-        if (isAuthenticated()) {
-          // User is authenticated, allow access to the dashboard route
-          next()
-        } else {
-          // User is not authenticated, redirect to login route
-          next(ROUTES.login.path) // Redirect to the login route
-        }
-      }
-    },
-    {
       path: ROUTES.contact.path,
       name: ROUTES.contact.name,
       component: () => import('../views/ContactView.vue')
@@ -121,81 +42,116 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
+      path: ROUTES.login.path,
+      name: ROUTES.login.name,
+      component: LoginView,
+      meta: ROUTES.login.meta
+    },
+    {
+      path: ROUTES.register.path,
+      name: ROUTES.register.name,
+      component: RegisterView,
+      meta: ROUTES.register.meta
+    },
+    {
+      path: ROUTES.activate.path,
+      name: ROUTES.activate.name,
+      component: ActivateView
+    },
+    {
+      path: ROUTES.dashboard.path,
+      name: ROUTES.dashboard.name,
+      component: DashboardView,
+      meta: ROUTES.dashboard.meta
+    },
+    {
+      path: ROUTES.apiKey.path,
+      name: ROUTES.apiKey.name,
+      component: ApiKeyView,
+      meta: ROUTES.apiKey.meta
+    },
+    {
+      path: ROUTES.testApi.path,
+      name: ROUTES.testApi.name,
+      component: TestApiView,
+      meta: ROUTES.testApi.meta
+    },
+    {
       path: ROUTES.settings.path,
       name: ROUTES.settings.name,
       component: ProfileView,
-      beforeEnter: (to, from, next) => {
-        // Check if the user is authenticated
-        if (isAuthenticated()) {
-          // User is authenticated, redirect to /settings/profile
-          next(ROUTES.profile.path)
-        } else {
-          // User is not authenticated, redirect to login route
-          next(ROUTES.login.path)
-        }
-      }
+      meta: ROUTES.settings.meta
     },
     {
       path: ROUTES.profile.path,
       name: ROUTES.profile.name,
       component: ProfileView,
-      beforeEnter: (to, from, next) => {
-        if (isAuthenticated()) {
-          next()
-        } else {
-          next(ROUTES.login.path)
-        }
-      }
+      meta: ROUTES.profile.meta
     },
     {
       path: ROUTES.account.path,
       name: ROUTES.account.name,
       component: AccountView,
-      beforeEnter: (to, from, next) => {
-        if (isAuthenticated()) {
-          next()
-        } else {
-          next(ROUTES.login.path)
-        }
-      }
+      meta: ROUTES.account.meta
     },
     {
       path: ROUTES.appearance.path,
       name: ROUTES.appearance.name,
       component: AppearanceView,
-      beforeEnter: (to, from, next) => {
-        if (isAuthenticated()) {
-          next()
-        } else {
-          next(ROUTES.login.path)
-        }
-      }
+      meta: ROUTES.appearance.meta
     },
     {
       path: ROUTES.notifications.path,
       name: ROUTES.notifications.name,
       component: NotificationsView,
-      beforeEnter: (to, from, next) => {
-        if (isAuthenticated()) {
-          next()
-        } else {
-          next(ROUTES.login.path)
-        }
-      }
+      meta: ROUTES.notifications.meta
     },
     {
       path: ROUTES.display.path,
       name: ROUTES.display.name,
       component: DisplayView,
-      beforeEnter: (to, from, next) => {
-        if (isAuthenticated()) {
-          next()
-        } else {
-          next(ROUTES.login.path)
-        }
-      }
+      meta: ROUTES.display.meta
     }
   ]
+})
+
+// Add a beforeEach navigation guard
+// On refresh, the beforeEach guard is not triggered
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
+
+  // Fetch user data if user is authenticated and auth is required
+  if (to.meta.requiresAuth && !userStore.isLoggedIn && isAuthenticated()) {
+    try {
+      const userData = await api.getUser()
+      userStore.setUser(userData)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // if user is not authenticated and auth is required, redirect to /login route
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    next(ROUTES.login.path)
+  }
+
+  // if user is authenticated and route is /login or /register, redirect to /login route
+  else if (to.meta.authRoute && isAuthenticated()) {
+    next(ROUTES.dashboard.path)
+  }
+
+  // if user is authenticated but not activated, redirect to /activate route
+  else if (to.meta.requiresAuth && isAuthenticated() && !userStore.isUserActivated) {
+    next(ROUTES.activate.path)
+  }
+
+  // if path is /settings then redirect to /settings/profile
+  else if (to.path === ROUTES.settings.path) {
+    next(ROUTES.profile.path)
+  } else {
+    // User is authenticated or the route doesn't require authentication, proceed
+    next()
+  }
 })
 
 export default router

@@ -1,10 +1,11 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import * as ROUTES from '@/lib/definitions/routes/main'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 
+const router = useRouter()
 const route = useRoute()
 
 const sidebarSettingsItems = [
@@ -36,15 +37,15 @@ const sidebarSettingsItems = [
     <Button
       v-for="item in sidebarSettingsItems"
       :key="item.title"
-      as="a"
       :href="item.href"
       variant="ghost"
       :class="
         cn(
           'w-full text-left justify-start',
-          route.path === `${item.href}.html` && 'bg-muted hover:bg-muted'
+          route.path === `${item.href}` && 'bg-muted hover:bg-muted'
         )
       "
+      @click="router.push(item.href)"
     >
       {{ item.title }}
       <span class="ml-4 text-orange-600" style="font-size: 10px">(coming soon)</span>

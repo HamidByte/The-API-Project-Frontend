@@ -6,7 +6,8 @@ export const useUserStore = defineStore('user', {
     isUserActive: false
   }),
   getters: {
-    isLoggedIn: (state) => !!state.user
+    isLoggedIn: (state) => !!state.user,
+    isUserActivated: (state) => !!state.user.isActive
   },
   actions: {
     setUser(user) {

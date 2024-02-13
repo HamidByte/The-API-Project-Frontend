@@ -1,5 +1,5 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import * as ROUTES from '@/lib/definitions/routes/main'
 
 import { cn } from '@/lib/utils'
@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import ApiKeyIcon from '@/components/icons/ApiKeyIcon.vue'
 import { DashboardIcon, CheckCircledIcon } from '@radix-icons/vue'
 
+const router = useRouter()
 const route = useRoute()
 
 const sidebarNavItems = [
@@ -35,15 +36,15 @@ const iconMapping = [DashboardIcon, ApiKeyIcon, CheckCircledIcon]
     <Button
       v-for="(item, index) in sidebarNavItems"
       :key="item.title"
-      as="a"
       :href="item.href"
       variant="ghost"
       :class="
         cn(
           'w-full text-left justify-start',
-          route.path === `${item.href}.html` && 'bg-muted hover:bg-muted'
+          route.path === `${item.href}` && 'bg-muted hover:bg-muted'
         )
       "
+      @click="router.push(item.href)"
     >
       <component :is="iconMapping[index]" class="mr-2 h-4 w-4 text-muted-foreground" />
       {{ item.title }}

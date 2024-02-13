@@ -1,40 +1,16 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import moment from 'moment'
 import { useUserStore } from '@/stores'
-import * as ROUTES from '@/lib/definitions/routes/main'
-import { api } from '@/api'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Toaster from '@/components/ui/toast/Toaster.vue'
-import { useToast } from '@/components/ui/toast/use-toast'
 
-const router = useRouter()
 const userStore = useUserStore()
-const { toast } = useToast()
 const currentUser = ref(null)
 
-// Fetch user data and update the store on component creation
-const fetchUserData = async () => {
-  try {
-    const userData = await api.getUser()
-    currentUser.value = userData
-    userStore.setUser(userData)
-    if (!userData.isActive) {
-      router.push(ROUTES.activate.path)
-    }
-  } catch (error) {
-    toast({
-      title: 'Uh oh! Something went wrong.',
-      description: error
-    })
-  }
-}
-
-// Call fetchUserData when the component is mounted
 onMounted(async () => {
-  await fetchUserData()
+  currentUser.value = userStore.user
 })
 
 // Use watch to update currentUser when userStore.user changes

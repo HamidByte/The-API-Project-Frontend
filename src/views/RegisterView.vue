@@ -1,42 +1,37 @@
-<script>
+<script setup>
+import { useRouter } from 'vue-router'
 import * as ROUTES from '@/lib/definitions/routes/main'
 import { api } from '@/api'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import Toaster from '@/components/ui/toast/Toaster.vue'
-import { useToast } from '@/components/ui/toast/use-toast'
 import UserRegister from '@/components/UserRegister.vue'
 
+import { useToast } from '@/components/ui/toast/use-toast'
 const { toast } = useToast()
 
-export default {
-  components: { Toaster, UserRegister },
-  data: () => {
-    return { buttonVariants, cn, email: null, password: null, registerError: null }
-  },
-  methods: {
-    async handleRegister(event) {
-      try {
-        this.email = event.email
-        this.password = event.password
-        const result = await api.registerUser(this.email, this.password)
+const router = useRouter()
 
-        toast({
-          title: 'Hooray! Operation Successful!',
-          description: result.message
-        })
+const handleRegister = async (event) => {
+  try {
+    const result = await api.registerUser(event.email, event.password)
 
-        // Redirect to a new route or perform any other actions
-        this.$router.push(ROUTES.activate.path)
-      } catch (error) {
-        this.registerError = error
-        toast({
-          title: 'Uh oh! Something went wrong.',
-          description: error
-        })
-      }
-    }
+    toast({
+      title: 'Hooray! Operation Successful!',
+      description: result.message
+    })
+
+    // Redirect to a new route or perform any other actions
+    router.push(ROUTES.activate.path)
+
+    // Without reloading, toaster throws errors and warnings
+    router.go() // Reloads the current route
+  } catch (error) {
+    toast({
+      title: 'Uh oh! Something went wrong.',
+      description: error,
+      variant: 'destructive'
+    })
   }
 }
 </script>
@@ -45,14 +40,14 @@ export default {
   <div
     class="container relative h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
   >
-    <a
-      href="/login"
+    <button
       :class="
         cn(buttonVariants({ variant: 'ghost' }), 'absolute right-4 top-4 md:right-8 md:top-8')
       "
+      @click="router.push(ROUTES.login.path)"
     >
       Login
-    </a>
+    </button>
     <div class="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
       <div class="absolute inset-0 bg-zinc-900" />
       <div class="relative z-20 flex items-center text-lg font-medium">
@@ -92,5 +87,4 @@ export default {
       </div>
     </div>
   </div>
-  <Toaster />
 </template>

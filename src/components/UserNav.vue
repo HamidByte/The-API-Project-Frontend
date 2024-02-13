@@ -1,9 +1,8 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { clearUserId } from '@/lib/authUtils'
+import { clearAuthentication } from '@/lib/authUtils'
 import * as ROUTES from '@/lib/definitions/routes/main'
-import { api } from '@/api'
 import { useUserStore } from '@/stores'
 
 import {
@@ -27,24 +26,17 @@ const router = useRouter()
 const userStore = useUserStore()
 const currentUser = ref(null)
 
-// Fetch user data and update the store on component creation
-const fetchUserData = async () => {
-  try {
-    const userData = await api.getUser()
-    userStore.setUser(userData)
-    if (!userData.isActive) {
-      router.push(ROUTES.activate.path)
-    }
-  } catch (error) {
-    //
-  }
-}
-
-// Call fetchUserData when the component is mounted
 onMounted(async () => {
-  await fetchUserData()
   currentUser.value = userStore.user
 })
+
+// Use watch to update currentUser when userStore.user changes
+watch(
+  () => userStore.user,
+  (newUser) => {
+    currentUser.value = newUser
+  }
+)
 
 const email = computed(() => {
   if (currentUser.value?.email) {
@@ -86,7 +78,7 @@ const initials = computed(() => {
 })
 
 const logout = () => {
-  clearUserId()
+  clearAuthentication()
 
   // Redirect to the login page
   router.push(ROUTES.login.path)

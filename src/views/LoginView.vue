@@ -1,46 +1,38 @@
-<script>
+<script setup>
+import { useRouter } from 'vue-router'
 import * as ROUTES from '@/lib/definitions/routes/main'
 import { api } from '@/api'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import Toaster from '@/components/ui/toast/Toaster.vue'
-import { useToast } from '@/components/ui/toast/use-toast'
 import UserLogin from '@/components/UserLogin.vue'
-
-const { toast } = useToast()
 import { useUserStore } from '@/stores'
 
-export default {
-  components: { Toaster, UserLogin },
-  data: () => {
-    return { buttonVariants, cn, email: null, password: null, loginError: null }
-  },
-  methods: {
-    async handleLogin(event) {
-      const userStore = useUserStore()
+import { useToast } from '@/components/ui/toast/use-toast'
+const { toast } = useToast()
 
-      try {
-        this.email = event.email
-        this.password = event.password
-        const user = await api.loginUser(this.email, this.password)
+const router = useRouter()
+const userStore = useUserStore()
 
-        // Store user information in the user store
-        userStore.setUser(user)
+const handleLogin = async (event) => {
+  try {
+    const user = await api.loginUser(event.email, event.password)
+    // Store user information in the user store
+    userStore.setUser(user)
 
-        if (user.isActive) {
-          this.$router.push(ROUTES.dashboard.path)
-        } else {
-          this.$router.push(ROUTES.activate.path)
-        }
-      } catch (error) {
-        this.loginError = error
-        toast({
-          title: 'Uh oh! Something went wrong.',
-          description: error
-        })
-      }
+    if (user.isActive) {
+      router.push(ROUTES.dashboard.path)
+    } else {
+      router.push(ROUTES.activate.path)
     }
+    // Without reloading, toaster throws errors and warnings
+    router.go() // Reloads the current route
+  } catch (error) {
+    toast({
+      title: 'Uh oh! Something went wrong.',
+      description: error,
+      variant: 'destructive'
+    })
   }
 }
 </script>
@@ -49,14 +41,14 @@ export default {
   <div
     class="container relative h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0"
   >
-    <a
-      href="/register"
+    <button
       :class="
         cn(buttonVariants({ variant: 'ghost' }), 'absolute right-4 top-4 md:right-8 md:top-8')
       "
+      @click="router.push(ROUTES.register.path)"
     >
       Register
-    </a>
+    </button>
     <div class="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
       <div class="absolute inset-0 bg-zinc-900" />
       <div class="relative z-20 flex items-center text-lg font-medium">
@@ -94,5 +86,4 @@ export default {
       </div>
     </div>
   </div>
-  <Toaster />
 </template>

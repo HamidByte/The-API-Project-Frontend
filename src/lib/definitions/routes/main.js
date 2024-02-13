@@ -1,19 +1,68 @@
 export const home = { path: '/', name: 'home' }
-export const login = { path: '/login', name: 'login' }
-export const register = { path: '/register', name: 'register' }
-export const activate = { path: '/activate', name: 'activate' }
 export const contact = { path: '/contact', name: 'contact' }
 export const about = { path: '/about', name: 'about' }
 
+export const login = {
+  path: '/login',
+  name: 'login',
+  meta: { hideNavigation: true, authRoute: true }
+}
+export const register = {
+  path: '/register',
+  name: 'register',
+  meta: { hideNavigation: true, authRoute: true }
+}
+export const activate = {
+  path: '/activate',
+  name: 'activate'
+  // meta: { requiresAuth: true }
+}
+
 // Dashboard
-export const dashboard = { path: '/dashboard', name: 'dashboard' }
-export const apiKey = { path: '/api-key', name: 'apiKey' }
-export const testApi = { path: '/test-api', name: 'testApi' }
+export const dashboard = {
+  path: '/dashboard',
+  name: 'dashboard',
+  meta: { requiresAuth: true }
+}
+export const apiKey = {
+  path: '/api-key',
+  name: 'apiKey',
+  meta: { requiresAuth: true }
+}
+export const testApi = {
+  path: '/test-api',
+  name: 'testApi',
+  meta: { requiresAuth: true }
+}
 
 // Settings
-export const settings = { path: '/settings', name: 'settings' }
-export const profile = { path: '/settings/profile', name: 'profile' }
-export const account = { path: '/settings/account', name: 'account' }
-export const appearance = { path: '/settings/appearance', name: 'appearance' }
-export const notifications = { path: '/settings/notifications', name: 'notifications' }
-export const display = { path: '/settings/display', name: 'display' }
+export const settings = {
+  path: '/settings',
+  name: 'settings',
+  meta: { requiresAuth: true }
+}
+export const profile = {
+  path: '/settings/profile',
+  name: 'profile',
+  meta: { requiresAuth: true }
+}
+export const account = {
+  path: '/settings/account',
+  name: 'account',
+  meta: { requiresAuth: true }
+}
+export const appearance = {
+  path: '/settings/appearance',
+  name: 'appearance',
+  meta: { requiresAuth: true }
+}
+export const notifications = {
+  path: '/settings/notifications',
+  name: 'notifications',
+  meta: { requiresAuth: true }
+}
+export const display = {
+  path: '/settings/display',
+  name: 'display',
+  meta: { requiresAuth: true }
+}

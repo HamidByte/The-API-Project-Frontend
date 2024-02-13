@@ -3,7 +3,7 @@ import axios from 'axios'
 // Set the `withCredentials` option to `true` to include credentials (cookies)
 // axios.defaults.withCredentials = true
 
-import { storeUserId } from '@/lib/authUtils'
+import { setAuthentication } from '@/lib/authUtils'
 import { BASE_URL_SERVER } from '@/config'
 
 export const api = {
@@ -25,7 +25,7 @@ export const api = {
       const userData = response.data
 
       // Store userId in sessionStorage and localStorage
-      storeUserId(userData.uuid)
+      setAuthentication(userData.uuid)
 
       return userData
     } catch (error) {
@@ -57,7 +57,7 @@ export const api = {
       const userData = response.data
 
       // Store userId in sessionStorage and localStorage
-      storeUserId(userData.uuid)
+      setAuthentication(userData.uuid)
 
       return userData
     } catch (error) {
