@@ -135,8 +135,10 @@ const deleteApiKey = async () => {
 
 <template>
   <div>
-    <h2 class="text-3xl font-bold tracking-tight">API Key</h2>
-    <p class="text-sm text-muted-foreground">Generate your API key.</p>
+    <div class="flex items-center justify-between space-y-2 mb-2">
+      <h2 class="text-3xl font-bold tracking-tight">API Key</h2>
+      <!-- <p class="text-sm text-muted-foreground">Generate your API key.</p> -->
+    </div>
 
     <div class="flex flex-col sm:flex-row items-center gap-1.5 p-4">
       <Input

@@ -14,15 +14,23 @@ const router = useRouter()
 
 const handleRegister = async (event) => {
   try {
-    const result = await api.registerUser(event.email, event.password)
+    if (event.password !== event.confirmPassword) {
+      toast({
+        title: 'Uh oh! Something went wrong.',
+        description: 'Passwords do not match.',
+        variant: 'destructive'
+      })
+    } else {
+      const result = await api.registerUser(event.email, event.password)
 
-    toast({
-      title: 'Hooray! Operation Successful!',
-      description: result.message
-    })
+      toast({
+        title: 'Hooray! Operation Successful!',
+        description: result.message
+      })
 
-    // Redirect to a new route or perform any other actions
-    router.push(ROUTES.activate.path)
+      // Redirect to a new route or perform any other actions
+      router.push(ROUTES.activate.path)
+    }
   } catch (error) {
     toast({
       title: 'Uh oh! Something went wrong.',

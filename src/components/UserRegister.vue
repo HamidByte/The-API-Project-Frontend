@@ -10,10 +10,15 @@ const emit = defineEmits(['submit'])
 
 const localEmail = ref('')
 const localPassword = ref('')
+const localConfirmPassword = ref('')
 const isLoading = ref(false)
 
 async function onSubmit() {
-  emit('submit', { email: localEmail.value, password: localPassword.value })
+  emit('submit', {
+    email: localEmail.value,
+    password: localPassword.value,
+    confirmPassword: localConfirmPassword.value
+  })
   // isLoading.value = true
 
   // setTimeout(() => {
@@ -43,6 +48,17 @@ async function onSubmit() {
             id="password"
             v-model="localPassword"
             placeholder="Password"
+            type="password"
+            auto-capitalize="none"
+            autocomplete="current-password"
+            auto-correct="off"
+            :disabled="isLoading"
+          />
+          <Label class="sr-only" for="confirmPassword"> Confirm Password </Label>
+          <Input
+            id="confirmPassword"
+            v-model="localConfirmPassword"
+            placeholder="Confirm Password"
             type="password"
             auto-capitalize="none"
             autocomplete="current-password"
