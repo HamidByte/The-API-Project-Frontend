@@ -225,5 +225,31 @@ export const api = {
         'An unexpected error occurred during deleting API key. Please try again later.'
       )
     }
+  },
+
+  async getRandomQuote(authToken) {
+    try {
+      if (!authToken) {
+        throw new Error('Missing authToken for getRandomQuote.')
+      }
+
+      const response = await axios.get(`${BASE_URL_SERVER}/api/v1/quote/random`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      })
+
+      const result = response.data
+
+      return result
+    } catch (error) {
+      // If the response has an error message, include it in the error object
+      if (error.response && error.response.data && error.response.data.error) {
+        throw error.response.data.error
+      }
+      throw new Error(
+        'An unexpected error occurred during fetching random quote. Please try again later.'
+      )
+    }
   }
 }
