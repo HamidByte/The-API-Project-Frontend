@@ -1,6 +1,7 @@
 export const home = { path: '/', name: 'home' }
-export const contact = { path: '/contact', name: 'contact' }
 export const about = { path: '/about', name: 'about' }
+export const notfound = { path: '/:pathMatch(.*)*', name: 'not_found' }
+export const contact = { path: '/contact', name: 'contact' }
 
 export const login = {
   path: '/login',

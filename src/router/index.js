@@ -29,17 +29,23 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: ROUTES.contact.path,
-      name: ROUTES.contact.name,
-      component: () => import('../views/ContactView.vue')
-    },
-    {
       path: ROUTES.about.path,
       name: ROUTES.about.name,
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('@/views/AboutView.vue')
+    },
+    // Handle all unmatched routes with the NotFound component
+    {
+      path: ROUTES.notfound.path,
+      name: ROUTES.notfound.name,
+      component: () => import('@/views/NotFound.vue')
+    },
+    {
+      path: ROUTES.contact.path,
+      name: ROUTES.contact.name,
+      component: () => import('@/views/ContactView.vue')
     },
     {
       path: ROUTES.login.path,
