@@ -140,7 +140,7 @@ const deleteApiKey = async () => {
       <!-- <p class="text-sm text-muted-foreground">Generate your API key.</p> -->
     </div>
 
-    <div class="flex flex-col sm:flex-row items-center gap-1.5 p-4">
+    <div class="flex flex-col sm:flex-row items-center gap-1.5 py-4">
       <Input
         id="apiKeyInput"
         v-bind:type="[showToken ? 'text' : 'password']"

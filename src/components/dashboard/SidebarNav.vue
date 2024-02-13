@@ -47,9 +47,7 @@ const iconMapping = [DashboardIcon, KeyRound, CheckCircledIcon]
     >
       <component :is="iconMapping[index]" class="mr-2 h-4 w-4 text-muted-foreground" />
       {{ item.title }}
-      <span class="ml-4 text-orange-600" style="font-size: 10px" v-if="item.isNew"
-        >(coming soon)</span
-      >
+      <span class="ml-4 text-orange-600" style="font-size: 10px" v-if="item.isNew">(New)</span>
     </Button>
   </nav>
 </template>
