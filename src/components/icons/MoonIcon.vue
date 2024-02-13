@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'ShirtIcon',
+  name: 'MoonIcon',
   props: {
     customClass: {
       type: String,

@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Loader2 } from 'lucide-vue-next'
 
 const emit = defineEmits(['submit'])
 
@@ -13,11 +14,11 @@ const isLoading = ref(false)
 
 async function onSubmit() {
   emit('submit', { email: localEmail.value, password: localPassword.value })
-  isLoading.value = true
+  // isLoading.value = true
 
-  setTimeout(() => {
-    isLoading.value = false
-  }, 1000)
+  // setTimeout(() => {
+  //   isLoading.value = false
+  // }, 500)
 }
 </script>
 
@@ -49,7 +50,10 @@ async function onSubmit() {
             :disabled="isLoading"
           />
         </div>
-        <Button :disabled="isLoading"> Register </Button>
+        <Button :disabled="isLoading">
+          <Loader2 v-if="isLoading" class="mr-2 h-4 w-4 animate-spin" />
+          Register
+        </Button>
       </div>
     </form>
   </div>

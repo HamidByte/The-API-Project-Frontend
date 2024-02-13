@@ -38,7 +38,7 @@ onMounted(async () => {
     router.push(ROUTES.login.path)
   } else {
     try {
-      const result = await api.isUserActive()
+      const result = await api.getIsUserActive()
 
       if (result.isActive) {
         activationStatus.value = true
@@ -67,8 +67,6 @@ onMounted(async () => {
 
             // Redirect to /dashboard after 3 seconds
             setTimeout(() => {
-              // Without reloading, toaster throws errors and warnings
-              router.go() // Reloads the current route
               router.push(ROUTES.dashboard.path)
             }, 3000)
           } catch (error) {
@@ -108,7 +106,7 @@ const activate = async () => {
 
     // Redirect to /dashboard after 3 seconds
     setTimeout(() => {
-      // Without reloading, toaster throws errors and warnings
+      // Without reloading, it's not redirecting
       router.go() // Reloads the current route
       router.push(ROUTES.dashboard.path)
     }, 3000)

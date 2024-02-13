@@ -65,8 +65,6 @@ export const api = {
       if (error.response && error.response.data && error.response.data.error) {
         throw error.response.data.error
       }
-      // eslint-disable-next-line no-console
-      // console.error('Error registering user:', error)
       throw new Error('An unexpected error occurred during registration. Please try again later.')
     }
   },
@@ -87,8 +85,6 @@ export const api = {
       if (error.response && error.response.data && error.response.data.error) {
         throw error.response.data.error
       }
-      // eslint-disable-next-line no-console
-      // console.error('Error activating user:', error)
       throw new Error(
         'An unexpected error occurred during user activation. Please try again later.'
       )
@@ -113,8 +109,6 @@ export const api = {
       if (error.response && error.response.data && error.response.data.error) {
         throw error.response.data.error
       }
-      // eslint-disable-next-line no-console
-      // console.error('Error sending activation email:', error)
       throw new Error(
         'An unexpected error occurred during sending activation email. Please try again later.'
       )
@@ -137,34 +131,98 @@ export const api = {
       if (error.response && error.response.data && error.response.data.error) {
         throw error.response.data.error
       }
-      // eslint-disable-next-line no-console
-      // console.error('Error fetching user data:', error)
       throw new Error(
         'An unexpected error occurred during fetching user data. Please try again later.'
       )
     }
   },
 
-  async isUserActive() {
+  async getIsUserActive() {
     try {
       const response = await axios.get(`${BASE_URL_SERVER}/is-user-active`, {
         // Set the `withCredentials` option to `true` to include credentials (cookies)
         withCredentials: true
       })
 
-      // Get user data from the response
-      const userData = response.data
+      const result = response.data
 
-      return userData
+      return result
     } catch (error) {
       // If the response has an error message, include it in the error object
       if (error.response && error.response.data && error.response.data.error) {
         throw error.response.data.error
       }
-      // eslint-disable-next-line no-console
-      // console.error('Error fetching user activation status:', error)
       throw new Error(
         'An unexpected error occurred during fetching user activation status. Please try again later.'
+      )
+    }
+  },
+
+  async generateApiKey(tokenExpirationInSeconds) {
+    try {
+      const response = await axios.post(
+        `${BASE_URL_SERVER}/generate`,
+        {
+          tokenExpiration: tokenExpirationInSeconds
+        },
+        {
+          // Set the `withCredentials` option to `true` to include credentials (cookies)
+          withCredentials: true
+        }
+      )
+
+      const apiKey = response.data
+
+      return apiKey
+    } catch (error) {
+      // If the response has an error message, include it in the error object
+      if (error.response && error.response.data && error.response.data.error) {
+        throw error.response.data.error
+      }
+      throw new Error(
+        'An unexpected error occurred during generating API key. Please try again later.'
+      )
+    }
+  },
+
+  async getApiKey() {
+    try {
+      const response = await axios.get(`${BASE_URL_SERVER}/api-key`, {
+        // Set the `withCredentials` option to `true` to include credentials (cookies)
+        withCredentials: true
+      })
+
+      const apiKey = response.data
+
+      return apiKey
+    } catch (error) {
+      // If the response has an error message, include it in the error object
+      if (error.response && error.response.data && error.response.data.error) {
+        throw error.response.data.error
+      }
+      throw new Error(
+        'An unexpected error occurred during fetching API key. Please try again later.'
+      )
+    }
+  },
+
+  async deleteApiKey() {
+    try {
+      const response = await axios.delete(`${BASE_URL_SERVER}/revoke`, {
+        // Set the `withCredentials` option to `true` to include credentials (cookies)
+        withCredentials: true
+      })
+
+      const result = response.data
+
+      return result
+    } catch (error) {
+      // If the response has an error message, include it in the error object
+      if (error.response && error.response.data && error.response.data.error) {
+        throw error.response.data.error
+      }
+      throw new Error(
+        'An unexpected error occurred during deleting API key. Please try again later.'
       )
     }
   }

@@ -11,8 +11,8 @@ import {
   NavigationMenu
 } from '@/components/ui/navigation-menu'
 import UserNav from '@/components/UserNav.vue'
+import LogoIcon from '@/components/icons/LogoIcon.vue'
 import MenuIcon from '@/components/icons/MenuIcon.vue'
-import ShirtIcon from '@/components/icons/ShirtIcon.vue'
 import ToggleDarkMode from '@/components/ToggleDarkMode.vue'
 
 const router = useRouter()
@@ -38,7 +38,7 @@ const goToRegister = () => {
       </SheetTrigger>
       <SheetContent side="left">
         <RouterLink :to="ROUTES.home.path">
-          <ShirtIcon class="h-6 w-6" />
+          <LogoIcon customClass="h-6 w-6" />
           <span class="sr-only">ShadCN</span>
         </RouterLink>
         <div class="grid gap-2 py-6">
@@ -70,7 +70,7 @@ const goToRegister = () => {
       </SheetContent>
     </Sheet>
     <RouterLink class="mr-6 hidden lg:flex" :to="ROUTES.home.path">
-      <ShirtIcon class="h-6 w-6" />
+      <LogoIcon customClass="h-6 w-6" />
       <span class="sr-only">ShadCN</span>
     </RouterLink>
     <NavigationMenu class="hidden lg:flex">

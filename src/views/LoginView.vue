@@ -25,8 +25,6 @@ const handleLogin = async (event) => {
     } else {
       router.push(ROUTES.activate.path)
     }
-    // Without reloading, toaster throws errors and warnings
-    router.go() // Reloads the current route
   } catch (error) {
     toast({
       title: 'Uh oh! Something went wrong.',
@@ -64,7 +62,7 @@ const handleLogin = async (event) => {
         >
           <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
         </svg>
-        TheAPIProject
+        The API Project
       </div>
       <div class="relative z-20 mt-auto">
         <blockquote class="space-y-2">

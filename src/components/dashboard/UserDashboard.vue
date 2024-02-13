@@ -4,7 +4,6 @@ import moment from 'moment'
 import { useUserStore } from '@/stores'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import Toaster from '@/components/ui/toast/Toaster.vue'
 
 const userStore = useUserStore()
 const currentUser = ref(null)
@@ -144,5 +143,4 @@ const userActivationStatus = computed(() => {
       </CardContent>
     </Card>
   </div>
-  <Toaster />
 </template>

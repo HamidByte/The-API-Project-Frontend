@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 export const useUserStore = defineStore('user', {
   state: () => ({
     user: null,
-    isUserActive: false
+    isUserActive: false,
+    apiKey: null
   }),
   getters: {
     isLoggedIn: (state) => !!state.user,
@@ -18,6 +19,12 @@ export const useUserStore = defineStore('user', {
     },
     setIsUserActive(isActive) {
       this.isUserActive = isActive
+    },
+    setApiKey(token) {
+      this.apiKey = token
+    },
+    clearApiKey() {
+      this.apiKey = null
     }
   }
 })

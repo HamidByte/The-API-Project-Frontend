@@ -4,7 +4,7 @@ import * as ROUTES from '@/lib/definitions/routes/main'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import ApiKeyIcon from '@/components/icons/ApiKeyIcon.vue'
+import { KeyRound } from 'lucide-vue-next'
 import { DashboardIcon, CheckCircledIcon } from '@radix-icons/vue'
 
 const router = useRouter()
@@ -17,8 +17,7 @@ const sidebarNavItems = [
   },
   {
     title: 'API Key',
-    href: ROUTES.apiKey.path,
-    isNew: true
+    href: ROUTES.apiKey.path
   },
   {
     title: 'Test API',
@@ -27,7 +26,7 @@ const sidebarNavItems = [
   }
 ]
 
-const iconMapping = [DashboardIcon, ApiKeyIcon, CheckCircledIcon]
+const iconMapping = [DashboardIcon, KeyRound, CheckCircledIcon]
 </script>
 
 <template>
