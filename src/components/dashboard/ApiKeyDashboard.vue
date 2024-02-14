@@ -3,15 +3,13 @@ import { ref, onMounted, watch } from 'vue'
 import { useUserStore } from '@/stores'
 import { api } from '@/api'
 
-import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { format, differenceInMilliseconds } from 'date-fns'
-import { Calendar } from '@/components/ui/calendar'
-import { Calendar as CalendarIcon } from 'lucide-vue-next'
+import { differenceInMilliseconds } from 'date-fns'
 import { Eye, EyeOff } from 'lucide-vue-next'
 import { ClipboardCopyIcon } from '@radix-icons/vue'
+
+import CalendarPopover from '@/components/CalendarPopover.vue'
 
 import { useToast } from '@/components/ui/toast/use-toast'
 const { toast } = useToast()
@@ -19,7 +17,7 @@ const { toast } = useToast()
 const userStore = useUserStore()
 const apiKey = ref(null)
 const showToken = ref(false)
-const date = ref(null)
+const selectedDate = ref(null)
 const tokenExpirationInSeconds = ref(null)
 
 const DateMappings = {
@@ -31,7 +29,7 @@ onMounted(async () => {
   await getApiKey()
 })
 
-watch(date, async () => {
+watch(selectedDate, async () => {
   tokenExpirationInSeconds.value = await getTokenExpirationDate()
 })
 
@@ -46,7 +44,7 @@ const copyToClipboard = () => {
 }
 
 const getTokenExpirationDate = async () => {
-  if (!date.value) {
+  if (!selectedDate.value) {
     return DateMappings.DATE_NOT_SELECTED
   }
 
@@ -54,13 +52,13 @@ const getTokenExpirationDate = async () => {
   const currentDate = new Date()
 
   // Check if the selected date is in the past
-  if (date.value < currentDate) {
+  if (selectedDate.value < currentDate) {
     // console.error('Selected date is in the past. Please choose a future date.')
     return DateMappings.DATE_IN_PAST
   }
 
   // Calculate the difference in milliseconds between the selected date and the current date
-  const difference = differenceInMilliseconds(date.value, currentDate)
+  const difference = differenceInMilliseconds(selectedDate.value, currentDate)
 
   // Convert the difference to seconds
   return Math.floor(difference / 1000)
@@ -117,6 +115,7 @@ const generateApiKey = async () => {
 const deleteApiKey = async () => {
   try {
     const result = await api.deleteApiKey()
+    apiKey.value = null
     userStore.clearApiKey()
 
     toast({
@@ -143,15 +142,17 @@ const deleteApiKey = async () => {
     <div class="flex flex-col sm:flex-row items-center gap-1.5 py-4">
       <Input
         id="apiKeyInput"
+        class="w-full"
         v-bind:type="[showToken ? 'text' : 'password']"
         v-model="apiKey"
         placeholder="API key"
-        class="w-full"
       />
 
-      <Button v-if="!apiKey" variant="default" type="submit" @click="generateApiKey">
-        Generate
-      </Button>
+      <div v-if="!apiKey" class="flex items-center gap-1.5">
+        <CalendarPopover v-model="selectedDate" />
+
+        <Button variant="default" type="submit" @click="generateApiKey"> Generate </Button>
+      </div>
       <div v-else class="flex items-center gap-1.5">
         <Button variant="outline" class="ml-2 sm:ml-0" @click="showToken = !showToken">
           <EyeOff v-if="showToken" class="h-4 w-4" />
@@ -162,25 +163,7 @@ const deleteApiKey = async () => {
           <ClipboardCopyIcon class="h-4 w-4" />
         </Button>
 
-        <Popover>
-          <PopoverTrigger as-child>
-            <Button
-              :variant="'outline'"
-              :class="
-                cn(
-                  'w-[280px] justify-start text-left font-normal',
-                  !date && 'text-muted-foreground'
-                )
-              "
-            >
-              <CalendarIcon class="mr-2 h-4 w-4" />
-              <span>{{ date ? format(date, 'PPP') : 'Pick a date' }}</span>
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent class="w-auto p-0">
-            <Calendar v-model="date" />
-          </PopoverContent>
-        </Popover>
+        <CalendarPopover v-model="selectedDate" />
 
         <Button variant="default" type="submit" @click="generateApiKey">Regenerate</Button>
 

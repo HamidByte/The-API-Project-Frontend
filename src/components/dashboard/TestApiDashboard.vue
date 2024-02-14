@@ -197,7 +197,7 @@ const onSubmit = handleSubmit(async (values) => {
               id="apiKeyAuth"
               class="space-y-2"
               v-model="apiKeyToken"
-              placeholder="Bearer <API_KEY>"
+              placeholder="<API_KEY>"
               type="text"
               auto-capitalize="none"
               auto-correct="off"
