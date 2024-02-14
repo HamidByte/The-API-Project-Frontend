@@ -83,7 +83,7 @@ const onSubmit = handleSubmit(async (values) => {
     } catch (error) {
       toast({
         title: 'Oops! Something went wrong.',
-        description: 'Failed to fetch random quote. Please try again.',
+        description: error,
         variant: 'destructive'
       })
     }
@@ -98,8 +98,11 @@ const onSubmit = handleSubmit(async (values) => {
       <!-- <p class="text-sm text-muted-foreground">Test your APIs.</p> -->
     </div>
 
-    <div class="flex flex-col sm:flex-row items-center gap-1.5 py-4 md:min-w-[600px]">
-      <div class="min-w-full min-h-[400px] sm:w-1/2 space-y-6">
+    <div
+      class="flex flex-col sm:flex-row items-center gap-1.5 py-4 md:min-w-[600px]"
+      style="width: 400px"
+    >
+      <div class="min-w-full w-[400px] min-h-[400px] sm:w-1/2 space-y-6">
         <form @submit.prevent="onSubmit">
           <div class="space-y-2 my-4">
             <FormField v-slot="{ componentField }" name="apiName">

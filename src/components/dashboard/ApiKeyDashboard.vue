@@ -149,23 +149,6 @@ const deleteApiKey = async () => {
         class="w-full"
       />
 
-      <Popover>
-        <PopoverTrigger as-child>
-          <Button
-            :variant="'outline'"
-            :class="
-              cn('w-[280px] justify-start text-left font-normal', !date && 'text-muted-foreground')
-            "
-          >
-            <CalendarIcon class="mr-2 h-4 w-4" />
-            <span>{{ date ? format(date, 'PPP') : 'Pick a date' }}</span>
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent class="w-auto p-0">
-          <Calendar v-model="date" />
-        </PopoverContent>
-      </Popover>
-
       <Button v-if="!apiKey" variant="default" type="submit" @click="generateApiKey">
         Generate
       </Button>
@@ -178,6 +161,26 @@ const deleteApiKey = async () => {
         <Button v-if="showToken" variant="outline" class="ml-2 sm:ml-0" @click="copyToClipboard">
           <ClipboardCopyIcon class="h-4 w-4" />
         </Button>
+
+        <Popover>
+          <PopoverTrigger as-child>
+            <Button
+              :variant="'outline'"
+              :class="
+                cn(
+                  'w-[280px] justify-start text-left font-normal',
+                  !date && 'text-muted-foreground'
+                )
+              "
+            >
+              <CalendarIcon class="mr-2 h-4 w-4" />
+              <span>{{ date ? format(date, 'PPP') : 'Pick a date' }}</span>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent class="w-auto p-0">
+            <Calendar v-model="date" />
+          </PopoverContent>
+        </Popover>
 
         <Button variant="default" type="submit" @click="generateApiKey">Regenerate</Button>
 

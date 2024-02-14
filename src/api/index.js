@@ -230,7 +230,7 @@ export const api = {
   async getRandomQuote(authToken) {
     try {
       if (!authToken) {
-        throw new Error('Missing authToken for getRandomQuote.')
+        throw new Error('Missing authToken.')
       }
 
       const response = await axios.get(`${BASE_URL_SERVER}/api/v1/quote/random`, {
