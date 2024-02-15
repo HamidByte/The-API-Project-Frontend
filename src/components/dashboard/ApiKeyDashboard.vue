@@ -71,7 +71,11 @@ const getApiKey = async () => {
     apiKey.value = result.apiKey.token
     userStore.setApiKey(apiKey.value)
   } catch (error) {
-    //
+    // toast({
+    //   title: 'Uh oh! Something went wrong.',
+    //   description: error,
+    //   variant: 'destructive'
+    // })
   }
 }
 

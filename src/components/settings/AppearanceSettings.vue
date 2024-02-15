@@ -5,7 +5,6 @@ import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
 
 import { ChevronDownIcon } from '@radix-icons/vue'
-import { cn } from '@/lib/utils'
 import {
   FormControl,
   FormDescription,
@@ -17,6 +16,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Button, buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { toast } from '@/components/ui/toast'
 
 const appearanceSettingsSchema = toTypedSchema(

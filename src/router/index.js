@@ -4,6 +4,7 @@ import { useUserStore } from '@/stores'
 import { api } from '@/api'
 import * as ROUTES from '@/lib/definitions/routes/main'
 import HomeView from '@/views/HomeView.vue'
+import PricingView from '@/views/PricingView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import ActivateView from '@/views/ActivateView.vue'
@@ -29,6 +30,11 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: ROUTES.pricing.path,
+      name: ROUTES.pricing.name,
+      component: PricingView
+    },
+    {
       path: ROUTES.about.path,
       name: ROUTES.about.name,
       // route level code-splitting
@@ -36,16 +42,16 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('@/views/AboutView.vue')
     },
+    {
+      path: ROUTES.contact.path,
+      name: ROUTES.contact.name,
+      component: () => import('@/views/ContactView.vue')
+    },
     // Handle all unmatched routes with the NotFound component
     {
       path: ROUTES.notfound.path,
       name: ROUTES.notfound.name,
       component: () => import('@/views/NotFound.vue')
-    },
-    {
-      path: ROUTES.contact.path,
-      name: ROUTES.contact.name,
-      component: () => import('@/views/ContactView.vue')
     },
     {
       path: ROUTES.login.path,
