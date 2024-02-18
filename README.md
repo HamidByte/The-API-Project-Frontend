@@ -32,14 +32,12 @@ Create two files: `.env.development` and `.env.production.` and populate these f
 **.env.development:**
 
 ```bash
-APP_BASE_URL_FRONTEND=http://localhost:5173
 APP_BASE_URL_SERVER=http://localhost:3000
 ```
 
 **.env.production:**
 
 ```bash
-APP_BASE_URL_FRONTEND=your-base-url
 APP_BASE_URL_SERVER=your-base-url
 ```
 

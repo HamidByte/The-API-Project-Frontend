@@ -16,7 +16,6 @@ export const api = {
           password
         },
         {
-          // Set the `withCredentials` option to `true` to include credentials (cookies)
           withCredentials: true
         }
       )
@@ -48,7 +47,6 @@ export const api = {
           password
         },
         {
-          // Set the `withCredentials` option to `true` to include credentials (cookies)
           withCredentials: true
         }
       )
@@ -118,7 +116,6 @@ export const api = {
   async getUser() {
     try {
       const response = await axios.get(`${BASE_URL_SERVER}/get-user`, {
-        // Set the `withCredentials` option to `true` to include credentials (cookies)
         withCredentials: true
       })
 
@@ -140,7 +137,6 @@ export const api = {
   async getIsUserActive() {
     try {
       const response = await axios.get(`${BASE_URL_SERVER}/is-user-active`, {
-        // Set the `withCredentials` option to `true` to include credentials (cookies)
         withCredentials: true
       })
 
@@ -166,7 +162,6 @@ export const api = {
           tokenExpiration: tokenExpirationInSeconds
         },
         {
-          // Set the `withCredentials` option to `true` to include credentials (cookies)
           withCredentials: true
         }
       )
@@ -188,7 +183,6 @@ export const api = {
   async getApiKey() {
     try {
       const response = await axios.get(`${BASE_URL_SERVER}/api-key`, {
-        // Set the `withCredentials` option to `true` to include credentials (cookies)
         withCredentials: true
       })
 
@@ -209,7 +203,6 @@ export const api = {
   async deleteApiKey() {
     try {
       const response = await axios.delete(`${BASE_URL_SERVER}/revoke`, {
-        // Set the `withCredentials` option to `true` to include credentials (cookies)
         withCredentials: true
       })
 
