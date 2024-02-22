@@ -4,6 +4,14 @@ import { useUserStore } from '@/stores'
 import { api } from '@/api'
 import * as ROUTES from '@/lib/definitions/routes/main'
 import HomeView from '@/views/HomeView.vue'
+
+// Products
+import ProductsView from '@/views/ProductsView.vue'
+import QuotesView from '@/views/products/QuotesView.vue'
+import GiphiesView from '@/views/products/GiphiesView.vue'
+import ImageToTextView from '@/views/products/ImageToTextView.vue'
+
+// Other Public Routes
 import PricingView from '@/views/PricingView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
@@ -28,6 +36,26 @@ const router = createRouter({
       path: ROUTES.home.path,
       name: ROUTES.home.name,
       component: HomeView
+    },
+    {
+      path: ROUTES.products.path,
+      name: ROUTES.products.name,
+      component: ProductsView
+    },
+    {
+      path: ROUTES.quotes.path,
+      name: ROUTES.quotes.name,
+      component: QuotesView
+    },
+    {
+      path: ROUTES.giphies.path,
+      name: ROUTES.giphies.name,
+      component: GiphiesView
+    },
+    {
+      path: ROUTES.imageToText.path,
+      name: ROUTES.imageToText.name,
+      component: ImageToTextView
     },
     {
       path: ROUTES.pricing.path,

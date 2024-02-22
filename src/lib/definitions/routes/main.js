@@ -1,4 +1,8 @@
 export const home = { path: '/', name: 'home' }
+export const products = { path: '/products', name: 'products' }
+export const quotes = { path: '/quotes', name: 'quotes' }
+export const giphies = { path: '/giphies', name: 'giphies' }
+export const imageToText = { path: '/image-to-text', name: 'imageToText' }
 export const pricing = { path: '/pricing', name: 'pricing' }
 export const about = { path: '/about', name: 'about' }
 export const contact = { path: '/contact', name: 'contact' }

@@ -48,7 +48,7 @@ const sidebarSettingsItems = [
       @click="router.push(item.href)"
     >
       {{ item.title }}
-      <span class="ml-4 text-orange-600" style="font-size: 10px">(coming soon)</span>
+      <span class="ml-4 text-rose-400" style="font-size: 10px">(coming soon)</span>
     </Button>
   </nav>
 </template>
