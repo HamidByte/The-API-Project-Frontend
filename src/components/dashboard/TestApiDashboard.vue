@@ -4,7 +4,7 @@ import { useUserStore } from '@/stores'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
-import { api } from '@/api'
+import api from '@/api'
 
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
@@ -73,7 +73,7 @@ const onSubmit = handleSubmit(async (values) => {
     values.endpoints === ApiMappings.RANDOM_QUOTE.ENDPOINTS.RANDOM
   ) {
     try {
-      const result = await api.getRandomQuote(apiKeyToken.value)
+      const result = await api.quotes.getRandomQuote(apiKeyToken.value)
       userStore.setUser({ requestCount: userStore.user.requestCount + 1 })
       randomQuoteJson.value = result
       toast({

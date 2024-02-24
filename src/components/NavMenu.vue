@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
-import { isAuthenticated } from '@/lib/authUtils'
+import { isAuthenticated } from '@/lib/initializeAuth'
 import * as ROUTES from '@/lib/definitions/routes/main'
 
 import { Button } from '@/components/ui/button'

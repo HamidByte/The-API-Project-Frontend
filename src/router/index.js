@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { isAuthenticated } from '@/lib/authUtils'
+import { isAuthenticated } from '@/lib/initializeAuth'
 import { useUserStore } from '@/stores'
-import { api } from '@/api'
+import api from '@/api'
 import * as ROUTES from '@/lib/definitions/routes/main'
 import HomeView from '@/views/HomeView.vue'
 
@@ -160,10 +160,10 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore()
 
-  // Fetch user data if user is authenticated and auth is required
-  if (to.meta.requiresAuth && !userStore.isLoggedIn && isAuthenticated()) {
+  // Fetch user data if user is authenticated
+  if (isAuthenticated() && !userStore.isLoggedIn) {
     try {
-      const userData = await api.getUser()
+      const userData = await api.user.getUser()
       userStore.setUser(userData)
     } catch (error) {
       console.error(error)
@@ -175,7 +175,7 @@ router.beforeEach(async (to, from, next) => {
     next(ROUTES.login.path)
   }
 
-  // if user is authenticated and route is /login or /register, redirect to /login route
+  // if user is authenticated and route is /login or /register, redirect to /dashboard route
   else if (to.meta.authRoute && isAuthenticated()) {
     next(ROUTES.dashboard.path)
   }

@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { clearAuthentication } from '@/lib/authUtils'
+import { clearAuthentication } from '@/lib/initializeAuth'
+import { clearApiKey } from '@/lib/initializeStorage'
 import * as ROUTES from '@/lib/definitions/routes/main'
 import { useUserStore } from '@/stores'
 
@@ -79,6 +80,7 @@ const initials = computed(() => {
 
 const logout = () => {
   clearAuthentication()
+  clearApiKey()
 
   // Redirect to the login page
   router.push(ROUTES.login.path)

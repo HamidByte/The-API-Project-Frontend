@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
 import * as ROUTES from '@/lib/definitions/routes/main'
-import { api } from '@/api'
+import api from '@/api'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -21,7 +21,7 @@ const handleRegister = async (event) => {
         variant: 'destructive'
       })
     } else {
-      const result = await api.registerUser(event.email, event.password)
+      const result = await api.user.registerUser(event.email, event.password)
 
       toast({
         title: 'Hooray! Operation Successful!',

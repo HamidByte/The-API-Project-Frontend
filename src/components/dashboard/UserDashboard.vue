@@ -36,7 +36,7 @@ const subscriptionStatus = computed(() => {
 })
 
 const userActivationStatus = computed(() => {
-  return currentUser.value?.isActive ? 'Active' : 'Inactive'
+  return currentUser.value?.isConfirmed ? 'Active' : 'Inactive'
 })
 </script>
 

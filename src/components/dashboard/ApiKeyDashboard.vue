@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useUserStore } from '@/stores'
-import { api } from '@/api'
+import { setApiKey, clearApiKey } from '@/lib/initializeStorage'
+import api from '@/api'
 
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -26,7 +27,13 @@ const DateMappings = {
 }
 
 onMounted(async () => {
-  await getApiKey()
+  if (userStore.apiKey) {
+    apiKey.value = userStore.apiKey
+  } else {
+    // await fetchApiKey()
+    await setApiKey()
+    apiKey.value = userStore.apiKey
+  }
 })
 
 watch(selectedDate, async () => {
@@ -64,22 +71,22 @@ const getTokenExpirationDate = async () => {
   return Math.floor(difference / 1000)
 }
 
-const getApiKey = async () => {
-  try {
-    const result = await api.getApiKey()
+// const fetchApiKey = async () => {
+//   try {
+//     const result = await api.apiKey.getApiKey()
 
-    apiKey.value = result.apiKey.token
-    userStore.setApiKey(apiKey.value)
-  } catch (error) {
-    // toast({
-    //   title: 'Uh oh! Something went wrong.',
-    //   description: error,
-    //   variant: 'destructive'
-    // })
-  }
-}
+//     apiKey.value = result.apiKey.token
+//     userStore.setApiKey(apiKey.value)
+//   } catch (error) {
+//     toast({
+//       title: 'Uh oh! Something went wrong.',
+//       description: error,
+//       variant: 'destructive'
+//     })
+//   }
+// }
 
-const generateApiKey = async () => {
+const fetchGenerateApiKey = async () => {
   if (
     tokenExpirationInSeconds.value === DateMappings.DATE_NOT_SELECTED ||
     tokenExpirationInSeconds.value === null
@@ -97,10 +104,10 @@ const generateApiKey = async () => {
     })
   } else {
     try {
-      const result = await api.generateApiKey(tokenExpirationInSeconds.value)
+      const result = await api.apiKey.generateApiKey(tokenExpirationInSeconds.value)
 
       apiKey.value = result.apiKey.token
-      userStore.setApiKey(apiKey.value)
+      setApiKey()
 
       toast({
         title: 'Hooray! Operation Successful!',
@@ -116,11 +123,11 @@ const generateApiKey = async () => {
   }
 }
 
-const deleteApiKey = async () => {
+const fetchDeleteApiKey = async () => {
   try {
-    const result = await api.deleteApiKey()
+    const result = await api.apiKey.deleteApiKey()
     apiKey.value = null
-    userStore.clearApiKey()
+    clearApiKey()
 
     toast({
       title: 'Hooray! Operation Successful!',
@@ -155,7 +162,7 @@ const deleteApiKey = async () => {
       <div v-if="!apiKey" class="flex items-center gap-1.5">
         <CalendarPopover v-model="selectedDate" />
 
-        <Button variant="default" type="submit" @click="generateApiKey"> Generate </Button>
+        <Button variant="default" type="submit" @click="fetchGenerateApiKey"> Generate </Button>
       </div>
       <div v-else class="flex items-center gap-1.5">
         <Button variant="outline" class="ml-2 sm:ml-0" @click="showToken = !showToken">
@@ -169,9 +176,9 @@ const deleteApiKey = async () => {
 
         <CalendarPopover v-model="selectedDate" />
 
-        <Button variant="default" type="submit" @click="generateApiKey">Regenerate</Button>
+        <Button variant="default" type="submit" @click="fetchGenerateApiKey">Regenerate</Button>
 
-        <Button variant="destructive" type="submit" @click="deleteApiKey">Delete</Button>
+        <Button variant="destructive" type="submit" @click="fetchDeleteApiKey">Delete</Button>
       </div>
     </div>
   </div>

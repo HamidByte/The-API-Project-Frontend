@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
 import * as ROUTES from '@/lib/definitions/routes/main'
-import { api } from '@/api'
+import api from '@/api'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -16,11 +16,11 @@ const userStore = useUserStore()
 
 const handleLogin = async (event) => {
   try {
-    const user = await api.loginUser(event.email, event.password)
+    const user = await api.user.loginUser(event.email, event.password)
     // Store user information in the user store
     userStore.setUser(user)
 
-    if (user.isActive) {
+    if (user.isConfirmed) {
       router.push(ROUTES.dashboard.path)
     } else {
       router.push(ROUTES.activate.path)

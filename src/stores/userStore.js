@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', {
   }),
   getters: {
     isLoggedIn: (state) => !!state.user,
-    isUserActivated: (state) => !!state.user.isActive
+    isUserActivated: (state) => state.user.isConfirmed
   },
   actions: {
     setUser(user) {
@@ -17,8 +17,8 @@ export const useUserStore = defineStore('user', {
     clearUser() {
       this.user = null
     },
-    setIsUserActive(isActive) {
-      this.isUserActive = isActive
+    setIsUserActive(value) {
+      this.isUserActive = value
     },
     setApiKey(token) {
       this.apiKey = token

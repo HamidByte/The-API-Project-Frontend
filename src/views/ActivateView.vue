@@ -2,9 +2,9 @@
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores'
-import { isAuthenticated } from '@/lib/authUtils'
+import { isAuthenticated } from '@/lib/initializeAuth'
 import * as ROUTES from '@/lib/definitions/routes/main'
-import { api } from '@/api'
+import api from '@/api'
 
 import { useToast } from '@/components/ui/toast/use-toast'
 const { toast } = useToast()
@@ -25,22 +25,22 @@ const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
 const activationStatus = ref(false)
-const token = ref(null)
+const code = ref(null)
 const resendActivationToggle = ref(false)
 const activationCode = ref('')
 const email = ref('')
 
 onMounted(async () => {
-  // Get the token from the route parameters
-  token.value = route.query.token
+  // Get the code from the route parameters
+  code.value = route.query.code
 
   if (!isAuthenticated()) {
     router.push(ROUTES.login.path)
   } else {
     try {
-      const result = await api.getIsUserActive()
+      const result = await api.user.getIsUserActive()
 
-      if (result.isActive) {
+      if (result.isConfirmed) {
         activationStatus.value = true
         userStore.setIsUserActive(true)
 
@@ -52,10 +52,10 @@ onMounted(async () => {
         activationStatus.value = false
         userStore.setIsUserActive(false)
 
-        if (token.value) {
+        if (code.value) {
           try {
             // Call the activation API endpoint
-            const result = await api.activateUser(token.value)
+            const result = await api.user.activateUser(code.value)
 
             activationStatus.value = true
             userStore.setIsUserActive(true)
@@ -94,9 +94,10 @@ onMounted(async () => {
 const activate = async () => {
   try {
     // Call the activation API endpoint
-    const result = await api.activateUser(activationCode.value)
+    const result = await api.user.activateUser(activationCode.value)
 
     activationStatus.value = true
+    userStore.setUser({ isConfirmed: true })
     userStore.setIsUserActive(true)
 
     toast({
@@ -104,14 +105,16 @@ const activate = async () => {
       description: result.message
     })
 
+    router.push(ROUTES.dashboard.path)
     // Redirect to /dashboard after 3 seconds
-    setTimeout(() => {
-      // Without reloading, it's not redirecting
-      router.go() // Reloads the current route
-      router.push(ROUTES.dashboard.path)
-    }, 3000)
+    // setTimeout(() => {
+    //   // Without reloading, it's not redirecting
+    //   router.go() // Reloads the current route
+    //   router.push(ROUTES.dashboard.path)
+    // }, 3000)
   } catch (error) {
     activationStatus.value = false
+    userStore.setUser({ isConfirmed: false })
     userStore.setIsUserActive(false)
 
     toast({
@@ -124,7 +127,7 @@ const activate = async () => {
 
 const resendActivationEmail = async () => {
   try {
-    const result = await api.resendActivation(email.value)
+    const result = await api.user.resendActivation(email.value)
 
     resendActivationToggle.value = false
 
