@@ -5,8 +5,8 @@ import axios from 'axios'
 
 import { setAuthentication } from '@/lib/initializeAuth'
 
-import { setApiKey } from '@/lib/initializeStorage'
-import { initializeApiKey } from '@/lib/initializeStorage'
+import { setAccessToken } from '@/lib/initializeStorage'
+import { initializeAccessToken } from '@/lib/initializeStorage'
 import { BASE_URL_SERVER } from '@/config'
 
 export const loginUser = async (email, password) => {
@@ -25,7 +25,7 @@ export const loginUser = async (email, password) => {
     // Store userId in localStorage
     setAuthentication(response.data.uuid)
     // Store token in localStorage
-    await setApiKey()
+    await setAccessToken()
 
     return response.data
   } catch (error) {
@@ -55,7 +55,7 @@ export const registerUser = async (email, password) => {
     // Store userId in localStorage
     setAuthentication(response.data.uuid)
     // Generate API key and store token in localStorage
-    await initializeApiKey()
+    await initializeAccessToken()
 
     return response.data
   } catch (error) {

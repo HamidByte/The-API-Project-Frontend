@@ -26,7 +26,7 @@ export const generateApiKey = async (tokenExpirationInSeconds) => {
   }
 }
 
-export const getApiKey = async () => {
+export const getAccessToken = async () => {
   try {
     const response = await axios.get(`${BASE_URL_SERVER}/api-key`, {
       withCredentials: true

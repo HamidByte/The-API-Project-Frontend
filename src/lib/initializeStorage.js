@@ -3,11 +3,11 @@ import { useUserStore } from '@/stores'
 
 const tokenExpirationInSeconds = 30 * 24 * 60 * 60 // Set expiration time in seconds (30 days in this case)
 
-export const initializeApiKey = async () => {
+export const initializeAccessToken = async () => {
   const userStore = useUserStore()
 
   try {
-    const apiKey = await api.apiKey.generateApiKey(tokenExpirationInSeconds)
+    const apiKey = await api.accessToken.generateApiKey(tokenExpirationInSeconds)
     userStore.setApiKey(apiKey.apiKey.token)
 
     localStorage.setItem('token', JSON.stringify(apiKey.apiKey.token))
@@ -21,12 +21,12 @@ export const initializeApiKey = async () => {
   }
 }
 
-export const setApiKey = async () => {
+export const setAccessToken = async () => {
   const userStore = useUserStore()
 
   try {
-    if (!userStore.apiKey || !getApiKey()) {
-      const apiKey = await api.apiKey.getApiKey()
+    if (!userStore.apiKey || !getAccessToken()) {
+      const apiKey = await api.accessToken.getAccessToken()
 
       userStore.setApiKey(apiKey.apiKey.token)
 
@@ -37,7 +37,7 @@ export const setApiKey = async () => {
   }
 }
 
-export const getApiKey = () => {
+export const getAccessToken = () => {
   const tokenString = localStorage.getItem('token')
 
   if (tokenString) {
@@ -49,7 +49,7 @@ export const getApiKey = () => {
   return null
 }
 
-export const clearApiKey = () => {
+export const clearAccessToken = () => {
   const userStore = useUserStore()
 
   userStore.clearApiKey()

@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { useUserStore } from '@/stores'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
@@ -23,7 +22,7 @@ import {
 } from '@/components/ui/select'
 
 import { toast } from '@/components/ui/toast'
-const userStore = useUserStore()
+
 const apiKeyToken = ref(null)
 // const selectedApi = ref(null)
 // const apiKeyQuery = ref(null)
@@ -74,7 +73,6 @@ const onSubmit = handleSubmit(async (values) => {
   ) {
     try {
       const result = await api.quotes.getRandomQuote(apiKeyToken.value)
-      userStore.setUser({ requestCount: userStore.user.requestCount + 1 })
       randomQuoteJson.value = result
       toast({
         title: 'Hooray! Operation Successful!',

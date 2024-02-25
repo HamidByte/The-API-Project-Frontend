@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useUserStore } from '@/stores'
 
 import { BASE_URL_SERVER } from '@/config'
 
@@ -13,6 +14,9 @@ export const getRandomQuote = async (authToken) => {
         Authorization: `Bearer ${authToken}`
       }
     })
+
+    const userStore = useUserStore()
+    userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
 
     return response.data
   } catch (error) {

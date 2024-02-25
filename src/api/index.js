@@ -1,11 +1,13 @@
 import * as userApi from './userApi'
-import * as apiKey from './apiKey'
+import * as accessToken from './apiKey'
 import * as quotesApi from './quotesApi'
+import * as ocr from './ocr'
 
 const api = {
   user: userApi,
-  apiKey: apiKey,
-  quotes: quotesApi
+  accessToken: accessToken,
+  quotes: quotesApi,
+  ocr: ocr
 }
 
 export default api

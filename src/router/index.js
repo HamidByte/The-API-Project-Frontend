@@ -181,7 +181,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // if user is authenticated but not activated, redirect to /activate route
-  else if (to.meta.requiresAuth && isAuthenticated() && !userStore.isUserActivated) {
+  else if (to.meta.requiresAuth && isAuthenticated() && !userStore.isUserConfirmed) {
     next(ROUTES.activate.path)
   }
 

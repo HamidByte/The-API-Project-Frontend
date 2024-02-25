@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useUserStore } from '@/stores'
-import { setApiKey, clearApiKey } from '@/lib/initializeStorage'
+import { setAccessToken, clearAccessToken } from '@/lib/initializeStorage'
 import api from '@/api'
 
 import { Input } from '@/components/ui/input'
@@ -31,7 +31,7 @@ onMounted(async () => {
     apiKey.value = userStore.apiKey
   } else {
     // await fetchApiKey()
-    await setApiKey()
+    await setAccessToken()
     apiKey.value = userStore.apiKey
   }
 })
@@ -73,7 +73,7 @@ const getTokenExpirationDate = async () => {
 
 // const fetchApiKey = async () => {
 //   try {
-//     const result = await api.apiKey.getApiKey()
+//     const result = await api.accessToken.getAccessToken()
 
 //     apiKey.value = result.apiKey.token
 //     userStore.setApiKey(apiKey.value)
@@ -104,10 +104,10 @@ const fetchGenerateApiKey = async () => {
     })
   } else {
     try {
-      const result = await api.apiKey.generateApiKey(tokenExpirationInSeconds.value)
+      const result = await api.accessToken.generateApiKey(tokenExpirationInSeconds.value)
 
       apiKey.value = result.apiKey.token
-      setApiKey()
+      setAccessToken()
 
       toast({
         title: 'Hooray! Operation Successful!',
@@ -125,9 +125,9 @@ const fetchGenerateApiKey = async () => {
 
 const fetchDeleteApiKey = async () => {
   try {
-    const result = await api.apiKey.deleteApiKey()
+    const result = await api.accessToken.deleteApiKey()
     apiKey.value = null
-    clearApiKey()
+    clearAccessToken()
 
     toast({
       title: 'Hooray! Operation Successful!',

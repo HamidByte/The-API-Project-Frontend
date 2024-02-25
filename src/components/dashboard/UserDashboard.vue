@@ -20,8 +20,8 @@ watch(
   }
 )
 
-const requestCount = computed(() => {
-  return currentUser.value?.requestCount
+const creditCount = computed(() => {
+  return currentUser.value?.creditCount
 })
 
 const lastRequestDate = computed(() => {
@@ -48,7 +48,7 @@ const userActivationStatus = computed(() => {
   <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
     <Card>
       <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle class="text-sm font-medium"> Total Requests </CardTitle>
+        <CardTitle class="text-sm font-medium"> Credits Used </CardTitle>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -65,8 +65,8 @@ const userActivationStatus = computed(() => {
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">{{ requestCount }}</div>
-        <p class="text-xs text-muted-foreground">Total requests made by the user</p>
+        <div class="text-2xl font-bold">{{ creditCount }}</div>
+        <p class="text-xs text-muted-foreground">Total credits used by the user</p>
       </CardContent>
     </Card>
     <Card>

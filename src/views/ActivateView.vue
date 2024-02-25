@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -25,97 +26,83 @@ const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
 const activationStatus = ref(false)
-const code = ref(null)
-const resendActivationToggle = ref(false)
 const activationCode = ref('')
 const email = ref('')
 
 onMounted(async () => {
-  // Get the code from the route parameters
-  code.value = route.query.code
-
   if (!isAuthenticated()) {
     router.push(ROUTES.login.path)
   } else {
-    try {
-      const result = await api.user.getIsUserActive()
-
-      if (result.isConfirmed) {
-        activationStatus.value = true
-        userStore.setIsUserActive(true)
-
-        // Redirect to /dashboard after 3 seconds
-        setTimeout(() => {
-          router.push(ROUTES.dashboard.path)
-        }, 3000)
-      } else {
-        activationStatus.value = false
-        userStore.setIsUserActive(false)
-
-        if (code.value) {
-          try {
-            // Call the activation API endpoint
-            const result = await api.user.activateUser(code.value)
-
-            activationStatus.value = true
-            userStore.setIsUserActive(true)
-
-            toast({
-              title: 'Hooray! Operation Successful!',
-              description: result.message
-            })
-
-            // Redirect to /dashboard after 3 seconds
-            setTimeout(() => {
-              router.push(ROUTES.dashboard.path)
-            }, 3000)
-          } catch (error) {
-            activationStatus.value = false
-            userStore.setIsUserActive(false)
-
-            toast({
-              title: 'Uh oh! Activation failed.',
-              description: error,
-              variant: 'destructive'
-            })
-          }
-        }
-      }
-    } catch (error) {
-      toast({
-        title: 'Uh oh! Something went wrong.',
-        description: error,
-        variant: 'destructive'
-      })
-    }
+    await isUserConfirmed()
   }
 })
 
-const activate = async () => {
+const isUserConfirmed = async () => {
+  if (userStore.isUserConfirmed) {
+    activationStatus.value = true
+    userStore.setUser({ isConfirmed: true })
+
+    // Redirect to /dashboard after 3 seconds
+    setTimeout(() => {
+      router.push(ROUTES.dashboard.path)
+    }, 3000)
+  } else {
+    activationStatus.value = false
+    userStore.setUser({ isConfirmed: false })
+
+    if (route.query.code) {
+      await confirmUserViaLink()
+    }
+  }
+}
+
+const confirmUserViaLink = async () => {
   try {
-    // Call the activation API endpoint
-    const result = await api.user.activateUser(activationCode.value)
+    const result = await api.user.activateUser(route.query.code)
 
     activationStatus.value = true
     userStore.setUser({ isConfirmed: true })
-    userStore.setIsUserActive(true)
 
     toast({
       title: 'Hooray! Operation Successful!',
       description: result.message
     })
 
-    router.push(ROUTES.dashboard.path)
     // Redirect to /dashboard after 3 seconds
-    // setTimeout(() => {
-    //   // Without reloading, it's not redirecting
-    //   router.go() // Reloads the current route
-    //   router.push(ROUTES.dashboard.path)
-    // }, 3000)
+    setTimeout(() => {
+      router.push(ROUTES.dashboard.path)
+    }, 3000)
   } catch (error) {
     activationStatus.value = false
     userStore.setUser({ isConfirmed: false })
-    userStore.setIsUserActive(false)
+
+    toast({
+      title: 'Uh oh! Activation failed.',
+      description: error,
+      variant: 'destructive'
+    })
+  }
+}
+
+const confirmUserViaCode = async () => {
+  try {
+    const result = await api.user.activateUser(activationCode.value)
+
+    activationStatus.value = true
+    userStore.setUser({ isConfirmed: true })
+
+    toast({
+      title: 'Hooray! Operation Successful!',
+      description: result.message
+    })
+
+    // Redirect to /dashboard after 3 seconds
+    setTimeout(() => {
+      router.push(ROUTES.dashboard.path)
+    }, 3000)
+  } catch (error) {
+    activationStatus.value = false
+    userStore.setUser({ isConfirmed: false })
 
     toast({
       title: 'Uh oh! Activation failed.',
@@ -129,15 +116,11 @@ const resendActivationEmail = async () => {
   try {
     const result = await api.user.resendActivation(email.value)
 
-    resendActivationToggle.value = false
-
     toast({
       title: 'Hooray! Operation Successful!',
       description: result.message
     })
   } catch (error) {
-    resendActivationToggle.value = true
-
     toast({
       title: 'Uh oh! Something went wrong.',
       description: error,
@@ -148,82 +131,78 @@ const resendActivationEmail = async () => {
 </script>
 
 <template>
-  <!-- Already Activated -->
-  <div
-    class="flex shrink-0 items-center justify-center"
-    v-if="activationStatus && !resendActivationToggle"
-  >
-    <div class="flex flex-col items-center justify-center p-6 w-full">
-      <Card class="mx-auto w-1/2">
+  <div class="flex shrink-0 items-center justify-center w-full">
+    <div v-if="activationStatus" class="sm:3/4 md:w-3/4 lg:w-2/3 xl:w-1/2">
+      <Card>
         <CardHeader>
           <CardTitle>Activated</CardTitle>
-          <CardDescription
-            >Your account is activated. You will be redirected to dashboard soon.</CardDescription
-          >
+          <CardDescription>
+            Your account is activated. You will be redirected to dashboard soon.
+          </CardDescription>
         </CardHeader>
+        <CardContent class="space-y-2">
+          <div class="space-y-1"></div>
+        </CardContent>
+        <CardFooter class="flex justify-center">
+          <Button type="submit" @click="router.push(ROUTES.dashboard.path)">
+            Go to Dashboard
+          </Button>
+        </CardFooter>
       </Card>
     </div>
-  </div>
 
-  <!-- Activate Account -->
-  <div
-    class="flex shrink-0 items-center justify-center"
-    v-if="!activationStatus && !resendActivationToggle"
-  >
-    <div class="flex flex-col items-center justify-center p-6 w-full">
-      <Card class="mx-auto w-1/2">
-        <CardHeader>
-          <CardTitle>Activate your account</CardTitle>
-          <CardDescription
-            >You're almost done! An email has been sent to your email address, contaiing your
-            activation code.</CardDescription
-          >
-        </CardHeader>
-        <CardContent class="text-center">
-          <div class="mb-2">
-            <Label for="activation_code">Please enter the activation code below</Label>
-          </div>
-          <div class="max-w-sm mx-auto">
-            <div class="flex items-center gap-1.5">
+    <Tabs v-else default-value="activate" class="sm:3/4 md:w-3/4 lg:w-2/3 xl:w-1/2">
+      <TabsList class="grid w-full grid-cols-2">
+        <TabsTrigger value="activate"> Activate </TabsTrigger>
+        <TabsTrigger value="resend-activation-email"> Resend Activation </TabsTrigger>
+      </TabsList>
+      <TabsContent value="activate">
+        <Card>
+          <CardHeader>
+            <CardTitle>Activate your account</CardTitle>
+            <CardDescription>
+              You're almost done! An email has been sent to your email address, contaiing your
+              activation code.
+            </CardDescription>
+          </CardHeader>
+          <CardContent class="space-y-2">
+            <div class="space-y-1">
+              <Label for="activation_code">Please enter the activation code below</Label>
               <Input
                 id="activation_code"
                 type="text"
                 v-model="activationCode"
                 placeholder="Activation code"
               />
-              <Button type="submit" @click="activate"> Activate </Button>
             </div>
-          </div>
-        </CardContent>
-        <CardFooter class="flex justify-center px-6 pb-6">
-          <Button variant="outline" type="text" @click="resendActivationToggle = true">
-            Resend Activation
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
-  </div>
-
-  <!-- Resend Activation Email -->
-  <div class="flex shrink-0 items-center justify-center" v-if="resendActivationToggle">
-    <div class="flex flex-col items-center justify-center p-6 w-full">
-      <Card class="mx-auto w-1/2">
-        <CardHeader>
-          <CardTitle>Resend Account Activation Email</CardTitle>
-          <CardDescription
-            >Please enter your email address to get the new activation code</CardDescription
-          >
-        </CardHeader>
-        <CardContent class="text-center">
-          <Input id="email" type="text" v-model="email" placeholder="Email" />
-        </CardContent>
-        <CardFooter class="flex justify-center px-6 pb-6">
-          <Button variant="default" type="submit" @click="resendActivationEmail">
-            Resend Activation
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
+          </CardContent>
+          <CardFooter class="flex justify-center">
+            <Button type="submit" @click="confirmUserViaCode"> Activate </Button>
+          </CardFooter>
+        </Card>
+      </TabsContent>
+      <TabsContent value="resend-activation-email">
+        <Card>
+          <CardHeader>
+            <CardTitle>Resend Account Activation Email</CardTitle>
+            <CardDescription>
+              Please enter your email address to get the new activation code
+            </CardDescription>
+          </CardHeader>
+          <CardContent class="space-y-2">
+            <div class="space-y-1">
+              <Label for="email">Please enter your email address</Label>
+              <Input id="email" type="text" v-model="email" placeholder="Email" />
+            </div>
+          </CardContent>
+          <CardFooter class="flex justify-center">
+            <Button variant="default" type="submit" @click="resendActivationEmail">
+              Resend Activation
+            </Button>
+          </CardFooter>
+        </Card>
+      </TabsContent>
+    </Tabs>
   </div>
 </template>
 

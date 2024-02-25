@@ -18,13 +18,17 @@ defineProps(['title', 'description', 'status', 'disabled', 'routePath'])
           <!-- Product Image -->
         </div>
         <div class="mt-4 flex items-start justify-between">
-          <div>
-            <h2 class="text-lg font-semibold">{{ title }}</h2>
-          </div>
-          <Badge v-if="status && status == 'Coming Soon'" class="bg-rose-400 hover:bg-rose-500">
+          <h2 class="text-lg font-semibold">{{ title }}</h2>
+          <Badge
+            v-if="status && status == 'Coming Soon'"
+            class="flex-shrink-0 bg-rose-400 hover:bg-rose-500"
+          >
             {{ status }}
           </Badge>
-          <Badge v-if="status && status == 'New'" class="bg-emerald-400 hover:bg-emerald-500">
+          <Badge
+            v-if="status && status == 'New'"
+            class="flex-shrink-0 bg-emerald-400 hover:bg-emerald-500"
+          >
             New
           </Badge>
         </div>

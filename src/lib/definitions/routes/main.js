@@ -21,7 +21,6 @@ export const register = {
 export const activate = {
   path: '/activate',
   name: 'activate'
-  // meta: { requiresAuth: true }
 }
 
 // Dashboard
