@@ -1,7 +1,7 @@
 import api from '@/api'
 import { useUserStore } from '@/stores'
 
-const tokenExpirationInSeconds = 30 * 24 * 60 * 60 // Set expiration time in seconds (30 days in this case)
+const tokenExpirationInSeconds = 12 * 30 * 24 * 60 * 60 // Set expiration time in seconds (1 year in this case)
 
 export const initializeAccessToken = async () => {
   const userStore = useUserStore()
