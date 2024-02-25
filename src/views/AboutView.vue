@@ -1,3 +1,7 @@
+<script setup>
+// import { ref } from 'vue'
+</script>
+
 <template>
   <div class="flex-col md:flex">
     <div class="flex-1 space-y-4 p-8 pt-6">
