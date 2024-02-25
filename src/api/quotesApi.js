@@ -24,7 +24,16 @@ export const getRandomQuotes = async (accessToken) => {
     return response.data
   } catch (error) {
     if (error.response?.data?.message) {
-      throw error.response.data.message
+      if (!error.response.data.found) {
+        const userStore = useUserStore()
+        userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+        throw error.response.data.message
+      }
+    }
+
+    // If the response has an error message, include it in the error object
+    if (error.response && error.response.data && error.response.data.error) {
+      throw error.response.data.error
     }
     throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
   }
@@ -44,7 +53,16 @@ export const searchQuotes = async (searchQuery) => {
     return response.data
   } catch (error) {
     if (error.response?.data?.message) {
-      throw error.response.data.message
+      if (!error.response.data.found) {
+        const userStore = useUserStore()
+        userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+        throw error.response.data.message
+      }
+    }
+
+    // If the response has an error message, include it in the error object
+    if (error.response && error.response.data && error.response.data.error) {
+      throw error.response.data.error
     }
     throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
   }
@@ -64,7 +82,16 @@ export const getRandomQuoteById = async (id) => {
     return response.data
   } catch (error) {
     if (error.response?.data?.message) {
-      throw error.response.data.message
+      if (!error.response.data.found) {
+        const userStore = useUserStore()
+        userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+        throw error.response.data.message
+      }
+    }
+
+    // If the response has an error message, include it in the error object
+    if (error.response && error.response.data && error.response.data.error) {
+      throw error.response.data.error
     }
     throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
   }
@@ -84,7 +111,16 @@ export const getRandomQuotesByCategory = async (category) => {
     return response.data
   } catch (error) {
     if (error.response?.data?.message) {
-      throw error.response.data.message
+      if (!error.response.data.found) {
+        const userStore = useUserStore()
+        userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+        throw error.response.data.message
+      }
+    }
+
+    // If the response has an error message, include it in the error object
+    if (error.response && error.response.data && error.response.data.error) {
+      throw error.response.data.error
     }
     throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
   }
@@ -104,7 +140,16 @@ export const getRandomQuotesByAuthor = async (author) => {
     return response.data
   } catch (error) {
     if (error.response?.data?.message) {
-      throw error.response.data.message
+      if (!error.response.data.found) {
+        const userStore = useUserStore()
+        userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+        throw error.response.data.message
+      }
+    }
+
+    // If the response has an error message, include it in the error object
+    if (error.response && error.response.data && error.response.data.error) {
+      throw error.response.data.error
     }
     throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
   }
