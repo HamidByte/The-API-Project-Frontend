@@ -66,13 +66,22 @@ const { handleSubmit } = useForm({
   validationSchema: formSchema
 })
 
+const tokenRequired = () => {
+  if (!apiKeyToken.value) {
+    throw new Error('Missing Authorization token.')
+  }
+}
+
 const onSubmit = handleSubmit(async (values) => {
   if (
     values.apiName === ApiMappings.RANDOM_QUOTE.NAME &&
     values.endpoints === ApiMappings.RANDOM_QUOTE.ENDPOINTS.RANDOM
   ) {
     try {
-      const result = await api.quotes.getRandomQuote(apiKeyToken.value)
+      // Validate
+      tokenRequired()
+
+      const result = await api.quotes.getRandomQuotes(apiKeyToken.value)
       randomQuoteJson.value = result
       toast({
         title: 'Hooray! Operation Successful!',

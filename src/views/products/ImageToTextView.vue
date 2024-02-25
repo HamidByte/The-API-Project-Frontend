@@ -48,7 +48,7 @@ const imageRequired = () => {
 
 const onSubmit = async () => {
   try {
-    // Validate language
+    // Validate
     languageRequired()
     imageRequired()
 

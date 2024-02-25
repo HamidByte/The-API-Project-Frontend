@@ -1,17 +1,20 @@
 import axios from 'axios'
 import { useUserStore } from '@/stores'
+import { getAccessToken } from '@/lib/initializeStorage'
 
 import { BASE_URL_SERVER } from '@/config'
 
-export const getRandomQuote = async (authToken) => {
+export const getRandomQuotes = async (accessToken) => {
   try {
-    if (!authToken) {
-      throw new Error('Missing authToken.')
+    const token = accessToken ? accessToken : getAccessToken()
+
+    if (!token) {
+      throw new Error('Invalid access token, please generate new API key.')
     }
 
     const response = await axios.get(`${BASE_URL_SERVER}/api/v1/quote/random`, {
       headers: {
-        Authorization: `Bearer ${authToken}`
+        Authorization: `Bearer ${token}`
       }
     })
 
@@ -20,12 +23,89 @@ export const getRandomQuote = async (authToken) => {
 
     return response.data
   } catch (error) {
-    // If the response has an error message, include it in the error object
-    if (error.response && error.response.data && error.response.data.error) {
-      throw error.response.data.error
+    if (error.response?.data?.message) {
+      throw error.response.data.message
     }
-    throw new Error(
-      'An unexpected error occurred during fetching random quote. Please try again later.'
-    )
+    throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
+  }
+}
+
+export const searchQuotes = async (searchQuery) => {
+  try {
+    const response = await axios.get(`${BASE_URL_SERVER}/api/v1/quote/search?q=${searchQuery}`, {
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`
+      }
+    })
+
+    const userStore = useUserStore()
+    userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+
+    return response.data
+  } catch (error) {
+    if (error.response?.data?.message) {
+      throw error.response.data.message
+    }
+    throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
+  }
+}
+
+export const getRandomQuoteById = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL_SERVER}/api/v1/quote/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`
+      }
+    })
+
+    const userStore = useUserStore()
+    userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+
+    return response.data
+  } catch (error) {
+    if (error.response?.data?.message) {
+      throw error.response.data.message
+    }
+    throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
+  }
+}
+
+export const getRandomQuotesByCategory = async (category) => {
+  try {
+    const response = await axios.get(`${BASE_URL_SERVER}/api/v1/quote/category/${category}`, {
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`
+      }
+    })
+
+    const userStore = useUserStore()
+    userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+
+    return response.data
+  } catch (error) {
+    if (error.response?.data?.message) {
+      throw error.response.data.message
+    }
+    throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
+  }
+}
+
+export const getRandomQuotesByAuthor = async (author) => {
+  try {
+    const response = await axios.get(`${BASE_URL_SERVER}/api/v1/quote/author/${author}`, {
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`
+      }
+    })
+
+    const userStore = useUserStore()
+    userStore.setUser({ creditCount: userStore.user.creditCount + 1 })
+
+    return response.data
+  } catch (error) {
+    if (error.response?.data?.message) {
+      throw error.response.data.message
+    }
+    throw new Error('An unexpected error occurred during fetching quotes. Please try again later.')
   }
 }

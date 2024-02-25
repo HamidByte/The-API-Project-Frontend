@@ -43,21 +43,6 @@ const router = createRouter({
       component: ProductsView
     },
     {
-      path: ROUTES.quotes.path,
-      name: ROUTES.quotes.name,
-      component: QuotesView
-    },
-    {
-      path: ROUTES.giphies.path,
-      name: ROUTES.giphies.name,
-      component: GiphiesView
-    },
-    {
-      path: ROUTES.imageToText.path,
-      name: ROUTES.imageToText.name,
-      component: ImageToTextView
-    },
-    {
       path: ROUTES.pricing.path,
       name: ROUTES.pricing.name,
       component: PricingView
@@ -98,6 +83,26 @@ const router = createRouter({
       name: ROUTES.activate.name,
       component: ActivateView
     },
+    // Products
+    {
+      path: ROUTES.quotes.path,
+      name: ROUTES.quotes.name,
+      component: QuotesView,
+      meta: ROUTES.dashboard.meta
+    },
+    {
+      path: ROUTES.giphies.path,
+      name: ROUTES.giphies.name,
+      component: GiphiesView,
+      meta: ROUTES.dashboard.meta
+    },
+    {
+      path: ROUTES.imageToText.path,
+      name: ROUTES.imageToText.name,
+      component: ImageToTextView,
+      meta: ROUTES.dashboard.meta
+    },
+    // Dashboard
     {
       path: ROUTES.dashboard.path,
       name: ROUTES.dashboard.name,

@@ -6,9 +6,9 @@ TheAPIProject is a versatile and affordable API platform designed to provide dev
 
 For the corresponding backend, visit the [The API Project](https://github.com/HamidByte/The-API-Project).
 
-## API Documentation
+## API Documentation on Postman
 
-Explore the API documentation on [Postman](https://www.postman.com/hamidbyte/workspace/the-api-project/overview).
+Explore the API documentation [API Documentation](https://documenter.getpostman.com/view/11546737/2sA2r55Rev) and [Postman Workspace](https://www.postman.com/hamidbyte/workspace/the-api-project/overview).
 
 ## Prerequisites
 
@@ -79,4 +79,4 @@ npm run format
 
 ## Acknowledgments
 
-Thank you to the open-source community for providing valuable tools and libraries.
+We express our gratitude to the open-source community for their invaluable contributions, which have played a pivotal role in enhancing our project by providing essential tools and libraries.
