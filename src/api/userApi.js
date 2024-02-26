@@ -69,15 +69,9 @@ export const loginUser = async (email, password) => {
 
 export const forgotPassword = async (email) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL_SERVER}/forgot-password`,
-      {
-        email
-      },
-      {
-        withCredentials: true
-      }
-    )
+    const response = await axios.post(`${BASE_URL_SERVER}/forgot-password`, {
+      email
+    })
 
     return response.data
   } catch (error) {
@@ -88,6 +82,24 @@ export const forgotPassword = async (email) => {
     // eslint-disable-next-line no-console
     // console.error('Error logging in:', error)
     throw new Error('An unexpected error occurred in forgot password. Please try again later.')
+  }
+}
+
+export const resetPassword = async (password, token) => {
+  try {
+    const response = await axios.post(`${BASE_URL_SERVER}/reset-password/${token}`, {
+      password
+    })
+
+    return response.data
+  } catch (error) {
+    // If the response has an error message, include it in the error object
+    if (error.response && error.response.data && error.response.data.error) {
+      throw error.response.data.error
+    }
+    // eslint-disable-next-line no-console
+    // console.error('Error logging in:', error)
+    throw new Error('An unexpected error occurred in reset password. Please try again later.')
   }
 }
 

@@ -16,7 +16,7 @@ export const login = {
   meta: { hideNavigation: true, authRoute: true }
 }
 export const resetPassword = {
-  path: '/reset-password',
+  path: '/reset-password/:token',
   name: 'resetPassword',
   meta: { hideNavigation: true, authRoute: true }
 }

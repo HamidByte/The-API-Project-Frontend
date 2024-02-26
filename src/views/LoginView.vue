@@ -57,11 +57,6 @@ const handleForgotPassword = async () => {
       title: 'Hooray! Operation Successful!',
       description: result.message
     })
-
-    // Redirect to /reset-password after 1 second
-    setTimeout(() => {
-      router.push(ROUTES.resetPassword.path)
-    }, 1000)
   } catch (error) {
     toast({
       title: 'Uh oh! Something went wrong.',
