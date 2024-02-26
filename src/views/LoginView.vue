@@ -131,7 +131,7 @@ const handleForgotPassword = async () => {
               <div class="grid gap-4 py-4">
                 <div class="grid grid-cols-4 items-center gap-4">
                   <Label for="email"> Email </Label>
-                  <Input id="email" v-model="email" value="" class="col-span-3" />
+                  <Input id="email" v-model="email" class="col-span-3" />
                 </div>
               </div>
               <DialogFooter>
