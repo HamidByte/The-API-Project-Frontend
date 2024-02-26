@@ -9,6 +9,34 @@ import { setAccessToken } from '@/lib/initializeStorage'
 import { initializeAccessToken } from '@/lib/initializeStorage'
 import { BASE_URL_SERVER } from '@/config'
 
+export const registerUser = async (email, password) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL_SERVER}/register`,
+      {
+        email,
+        password
+      },
+      {
+        withCredentials: true
+      }
+    )
+
+    // Store userId in localStorage
+    setAuthentication(response.data.uuid)
+    // Generate API key and store token in localStorage
+    await initializeAccessToken()
+
+    return response.data
+  } catch (error) {
+    // If the response has an error message, include it in the error object
+    if (error.response && error.response.data && error.response.data.error) {
+      throw error.response.data.error
+    }
+    throw new Error('An unexpected error occurred during registration. Please try again later.')
+  }
+}
+
 export const loginUser = async (email, password) => {
   try {
     const response = await axios.post(
@@ -39,23 +67,17 @@ export const loginUser = async (email, password) => {
   }
 }
 
-export const registerUser = async (email, password) => {
+export const forgotPassword = async (email) => {
   try {
     const response = await axios.post(
-      `${BASE_URL_SERVER}/register`,
+      `${BASE_URL_SERVER}/forgot-password`,
       {
-        email,
-        password
+        email
       },
       {
         withCredentials: true
       }
     )
-
-    // Store userId in localStorage
-    setAuthentication(response.data.uuid)
-    // Generate API key and store token in localStorage
-    await initializeAccessToken()
 
     return response.data
   } catch (error) {
@@ -63,7 +85,9 @@ export const registerUser = async (email, password) => {
     if (error.response && error.response.data && error.response.data.error) {
       throw error.response.data.error
     }
-    throw new Error('An unexpected error occurred during registration. Please try again later.')
+    // eslint-disable-next-line no-console
+    // console.error('Error logging in:', error)
+    throw new Error('An unexpected error occurred in forgot password. Please try again later.')
   }
 }
 

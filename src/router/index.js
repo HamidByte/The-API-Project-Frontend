@@ -13,8 +13,9 @@ import ImageToTextView from '@/views/products/ImageToTextView.vue'
 
 // Other Public Routes
 import PricingView from '@/views/PricingView.vue'
-import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
+import LoginView from '@/views/LoginView.vue'
+import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import ActivateView from '@/views/ActivateView.vue'
 
 // Dashboard
@@ -67,16 +68,22 @@ const router = createRouter({
       component: () => import('@/views/NotFound.vue')
     },
     {
+      path: ROUTES.register.path,
+      name: ROUTES.register.name,
+      component: RegisterView,
+      meta: ROUTES.register.meta
+    },
+    {
       path: ROUTES.login.path,
       name: ROUTES.login.name,
       component: LoginView,
       meta: ROUTES.login.meta
     },
     {
-      path: ROUTES.register.path,
-      name: ROUTES.register.name,
-      component: RegisterView,
-      meta: ROUTES.register.meta
+      path: ROUTES.resetPassword.path,
+      name: ROUTES.resetPassword.name,
+      component: ResetPasswordView,
+      meta: ROUTES.resetPassword.meta
     },
     {
       path: ROUTES.activate.path,
@@ -180,7 +187,7 @@ router.beforeEach(async (to, from, next) => {
     next(ROUTES.login.path)
   }
 
-  // if user is authenticated and route is /login or /register, redirect to /dashboard route
+  // if user is authenticated and route is /login /reset-password or /register, redirect to /dashboard route
   else if (to.meta.authRoute && isAuthenticated()) {
     next(ROUTES.dashboard.path)
   }

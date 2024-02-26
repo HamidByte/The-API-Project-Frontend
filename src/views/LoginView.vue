@@ -1,10 +1,23 @@
 <script setup>
+import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import * as ROUTES from '@/lib/definitions/routes/main'
 import api from '@/api'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
 import UserLogin from '@/components/UserLogin.vue'
 import { useUserStore } from '@/stores'
 
@@ -13,6 +26,8 @@ const { toast } = useToast()
 
 const router = useRouter()
 const userStore = useUserStore()
+
+const email = ref(null)
 
 const handleLogin = async (event) => {
   try {
@@ -25,6 +40,28 @@ const handleLogin = async (event) => {
     } else {
       router.push(ROUTES.activate.path)
     }
+  } catch (error) {
+    toast({
+      title: 'Uh oh! Something went wrong.',
+      description: error,
+      variant: 'destructive'
+    })
+  }
+}
+
+const handleForgotPassword = async () => {
+  try {
+    const result = await api.user.forgotPassword(email.value)
+
+    toast({
+      title: 'Hooray! Operation Successful!',
+      description: result.message
+    })
+
+    // Redirect to /reset-password after 1 second
+    setTimeout(() => {
+      router.push(ROUTES.resetPassword.path)
+    }, 1000)
   } catch (error) {
     toast({
       title: 'Uh oh! Something went wrong.',
@@ -84,6 +121,30 @@ const handleLogin = async (event) => {
           <p class="text-sm text-muted-foreground">Enter your email and password below to login</p>
         </div>
         <UserLogin @submit="handleLogin" />
+        <div class="flex flex-col space-y-2 text-center">
+          <Dialog>
+            <DialogTrigger as-child>
+              <Button variant="link" class="text-muted-foreground"> Forgot your password? </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Reset your password</DialogTitle>
+                <DialogDescription>
+                  We'll email you instructions to reset your password.
+                </DialogDescription>
+              </DialogHeader>
+              <div class="grid gap-4 py-4">
+                <div class="grid grid-cols-4 items-center gap-4">
+                  <Label for="email"> Email </Label>
+                  <Input id="email" v-model="email" value="" class="col-span-3" />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button @click="handleForgotPassword"> Reset Password </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
     </div>
   </div>

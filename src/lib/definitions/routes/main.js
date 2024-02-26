@@ -5,14 +5,19 @@ export const about = { path: '/about', name: 'about' }
 export const contact = { path: '/contact', name: 'contact' }
 export const notfound = { path: '/:pathMatch(.*)*', name: 'not_found' }
 
+export const register = {
+  path: '/register',
+  name: 'register',
+  meta: { hideNavigation: true, authRoute: true }
+}
 export const login = {
   path: '/login',
   name: 'login',
   meta: { hideNavigation: true, authRoute: true }
 }
-export const register = {
-  path: '/register',
-  name: 'register',
+export const resetPassword = {
+  path: '/reset-password',
+  name: 'resetPassword',
   meta: { hideNavigation: true, authRoute: true }
 }
 export const activate = {
