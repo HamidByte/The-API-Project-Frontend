@@ -1,6 +1,10 @@
 export const home = { path: '/', name: 'home' }
 export const products = { path: '/products', name: 'products' }
 export const pricing = { path: '/pricing', name: 'pricing' }
+export const api = {
+  path: 'https://documenter.getpostman.com/view/11546737/2sA2r55Rev',
+  name: 'api'
+}
 export const about = { path: '/about', name: 'about' }
 export const contact = { path: '/contact', name: 'contact' }
 export const notfound = { path: '/:pathMatch(.*)*', name: 'not_found' }
