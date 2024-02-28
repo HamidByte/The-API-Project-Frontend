@@ -41,6 +41,7 @@ export const clearAuthentication = () => {
 
   // Clear local storage
   localStorage.removeItem('user')
+  localStorage.removeItem('token')
 
   // Clear the cookies
   Cookies.remove('connect.sid')
