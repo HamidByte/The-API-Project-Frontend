@@ -13,15 +13,15 @@ const route = useRoute()
 const sidebarNavItems = [
   {
     title: 'Dashboard',
-    href: ROUTES.dashboard.path
+    href: ROUTES.DASHBOARD.path
   },
   {
     title: 'API Key',
-    href: ROUTES.apiKey.path
+    href: ROUTES.API_KEY.path
   },
   {
     title: 'Test API',
-    href: ROUTES.testApi.path,
+    href: ROUTES.TEST_API.path,
     isNew: true
   }
 ]

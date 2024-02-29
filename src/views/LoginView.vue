@@ -36,9 +36,9 @@ const handleLogin = async (event) => {
     userStore.setUser(user)
 
     if (user.isConfirmed) {
-      router.push(ROUTES.dashboard.path)
+      router.push(ROUTES.DASHBOARD.path)
     } else {
-      router.push(ROUTES.activate.path)
+      router.push(ROUTES.ACTIVATE.path)
     }
   } catch (error) {
     toast({
@@ -75,14 +75,14 @@ const handleForgotPassword = async () => {
       :class="
         cn(buttonVariants({ variant: 'ghost' }), 'absolute right-4 top-4 md:right-8 md:top-8')
       "
-      @click="router.push(ROUTES.register.path)"
+      @click="router.push(ROUTES.REGISTER.path)"
     >
       Register
     </button>
     <div class="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
       <div class="absolute inset-0 bg-zinc-900" />
       <RouterLink
-        :to="ROUTES.home.path"
+        :to="ROUTES.HOME.path"
         class="relative z-20 flex items-center text-lg font-medium"
       >
         <svg

@@ -11,23 +11,23 @@ const route = useRoute()
 const sidebarSettingsItems = [
   {
     title: 'Profile',
-    href: ROUTES.profile.path
+    href: ROUTES.PROFILE.path
   },
   {
     title: 'Account',
-    href: ROUTES.account.path
+    href: ROUTES.ACCOUNT.path
   },
   {
     title: 'Appearance',
-    href: ROUTES.appearance.path
+    href: ROUTES.APPEARANCE.path
   },
   {
     title: 'Notifications',
-    href: ROUTES.notifications.path
+    href: ROUTES.NOTIFICATIONS.path
   },
   {
     title: 'Display',
-    href: ROUTES.display.path
+    href: ROUTES.DISPLAY.path
   }
 ]
 </script>

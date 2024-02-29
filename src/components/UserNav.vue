@@ -83,7 +83,7 @@ const logout = () => {
   clearAccessToken()
 
   // Redirect to the login page
-  router.push(ROUTES.login.path)
+  router.push(ROUTES.LOGIN.path)
 }
 </script>
 
@@ -106,31 +106,31 @@ const logout = () => {
       </DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup>
-        <RouterLink :to="ROUTES.profile.path">
+        <RouterLink :to="ROUTES.PROFILE.path">
           <DropdownMenuItem>
             Profile
             <!-- <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> -->
           </DropdownMenuItem>
         </RouterLink>
-        <RouterLink :to="ROUTES.account.path">
+        <RouterLink :to="ROUTES.ACCOUNT.path">
           <DropdownMenuItem>
             Account
             <!-- <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> -->
           </DropdownMenuItem>
         </RouterLink>
-        <RouterLink :to="ROUTES.appearance.path">
+        <RouterLink :to="ROUTES.APPEARANCE.path">
           <DropdownMenuItem>Appearence</DropdownMenuItem>
         </RouterLink>
-        <RouterLink :to="ROUTES.notifications.path">
+        <RouterLink :to="ROUTES.NOTIFICATIONS.path">
           <DropdownMenuItem>
             Notifications
             <!-- <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> -->
           </DropdownMenuItem>
         </RouterLink>
-        <RouterLink :to="ROUTES.display.path">
+        <RouterLink :to="ROUTES.DISPLAY.path">
           <DropdownMenuItem>Display</DropdownMenuItem>
         </RouterLink>
-        <RouterLink :to="ROUTES.settings.path">
+        <RouterLink :to="ROUTES.SETTINGS.path">
           <DropdownMenuItem>Settings</DropdownMenuItem>
         </RouterLink>
       </DropdownMenuGroup>

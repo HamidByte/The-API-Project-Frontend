@@ -11,7 +11,7 @@ import ProductCard from '@/components/products/ProductCard.vue'
       description="Automatically extract printed text, handwriting, and data from an image."
       status="New"
       :disabled="false"
-      :routePath="ROUTES.imageToText.path"
+      :routePath="ROUTES.IMAGE_TO_TEXT.path"
     >
       <ul class="mt-2">
         <li>1 request requires 10 credits</li>
@@ -23,7 +23,7 @@ import ProductCard from '@/components/products/ProductCard.vue'
       description="Provides random quotes, search quotes, get random quote by ID, search by category, and
             search by author."
       :disabled="false"
-      :routePath="ROUTES.quotes.path"
+      :routePath="ROUTES.QUOTES.path"
     >
       <ul class="mt-2">
         <li>1 request requires 1 credit</li>
@@ -34,7 +34,7 @@ import ProductCard from '@/components/products/ProductCard.vue'
       title="Random Giphies API"
       description="Provides random giphies, search giphies, get giphy by ID, and get giphy by Gif ID."
       :disabled="false"
-      :routePath="ROUTES.giphies.path"
+      :routePath="ROUTES.GIPHIES.path"
     >
       <ul class="mt-2">
         <li>1 request requires 1 credit</li>

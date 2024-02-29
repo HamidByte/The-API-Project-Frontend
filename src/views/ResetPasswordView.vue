@@ -41,7 +41,7 @@ const handleResetPassword = async () => {
 
       // Redirect to /login after 1 second
       setTimeout(() => {
-        router.push(ROUTES.login.path)
+        router.push(ROUTES.LOGIN.path)
       }, 1000)
     }
   } catch (error) {
@@ -77,7 +77,7 @@ const handleResetPassword = async () => {
         </div>
         <div class="mt-4 text-center text-sm">
           Remember your password?
-          <RouterLink class="underline" :to="ROUTES.login.path"> Login </RouterLink>
+          <RouterLink class="underline" :to="ROUTES.LOGIN.path"> Login </RouterLink>
         </div>
       </CardContent>
     </Card>

@@ -9,7 +9,7 @@ export const pricingTiers = [
   {
     name: 'Free Forever',
     id: '0',
-    href: ROUTES.register.path,
+    href: ROUTES.REGISTER.path,
     price: { 1: '$0', 2: '$0' },
     discountPrice: { 1: '', 2: '' },
     description: `Get all goodies for free, no credit card required.`,
@@ -26,7 +26,7 @@ export const pricingTiers = [
   {
     name: 'Pro',
     id: '1',
-    href: ROUTES.dashboard.path,
+    href: ROUTES.DASHBOARD.path,
     price: { 1: '$3.99', 2: '$39.99' },
     discountPrice: { 1: '', 2: '' },
     description: `When you grow, need more power and flexibility.`,
@@ -43,7 +43,7 @@ export const pricingTiers = [
   {
     name: 'Scaler',
     id: '2',
-    href: ROUTES.dashboard.path,
+    href: ROUTES.DASHBOARD.path,
     price: { 1: '$9.99', 2: '$99.99' },
     discountPrice: { 1: '', 2: '' },
     description: `When you grow, need more power and flexibility.`,

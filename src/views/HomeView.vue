@@ -30,7 +30,7 @@ import { buttonVariants } from '@/components/ui/button'
         us on the journey of seamless integration and efficient management.
       </p>
       <div class="space-x-4">
-        <RouterLink :to="ROUTES.dashboard.path" :class="cn(buttonVariants({ size: 'lg' }))">
+        <RouterLink :to="ROUTES.DASHBOARD.path" :class="cn(buttonVariants({ size: 'lg' }))">
           Get Started
         </RouterLink>
         <RouterLink

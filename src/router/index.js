@@ -34,135 +34,136 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: ROUTES.home.path,
-      name: ROUTES.home.name,
+      path: ROUTES.HOME.path,
+      name: ROUTES.HOME.name,
       component: HomeView
     },
     {
-      path: ROUTES.products.path,
-      name: ROUTES.products.name,
+      path: ROUTES.PRODUCTS.path,
+      name: ROUTES.PRODUCTS.name,
       component: ProductsView
     },
     {
-      path: ROUTES.pricing.path,
-      name: ROUTES.pricing.name,
+      path: ROUTES.PRICING.path,
+      name: ROUTES.PRICING.name,
       component: PricingView
     },
     {
-      path: ROUTES.about.path,
-      name: ROUTES.about.name,
+      path: ROUTES.CONTACT.path,
+      name: ROUTES.CONTACT.name,
+      component: () => import('@/views/ContactView.vue')
+    },
+    {
+      path: ROUTES.ABOUT.path,
+      name: ROUTES.ABOUT.name,
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('@/views/AboutView.vue')
     },
-    {
-      path: ROUTES.contact.path,
-      name: ROUTES.contact.name,
-      component: () => import('@/views/ContactView.vue')
-    },
     // Handle all unmatched routes with the NotFound component
     {
-      path: ROUTES.notfound.path,
-      name: ROUTES.notfound.name,
+      path: ROUTES.NOT_FOUND.path,
+      name: ROUTES.NOT_FOUND.name,
       component: () => import('@/views/NotFound.vue')
     },
     {
-      path: ROUTES.register.path,
-      name: ROUTES.register.name,
+      path: ROUTES.REGISTER.path,
+      name: ROUTES.REGISTER.name,
       component: RegisterView,
-      meta: ROUTES.register.meta
+      meta: ROUTES.REGISTER.meta
     },
     {
-      path: ROUTES.login.path,
-      name: ROUTES.login.name,
+      path: ROUTES.LOGIN.path,
+      name: ROUTES.LOGIN.name,
       component: LoginView,
-      meta: ROUTES.login.meta
+      meta: ROUTES.LOGIN.meta
     },
     {
-      path: ROUTES.resetPassword.path,
-      name: ROUTES.resetPassword.name,
+      path: ROUTES.RESET_PASSWORD.path,
+      name: ROUTES.RESET_PASSWORD.name,
       component: ResetPasswordView,
-      meta: ROUTES.resetPassword.meta
+      meta: ROUTES.RESET_PASSWORD.meta
     },
     {
-      path: ROUTES.activate.path,
-      name: ROUTES.activate.name,
+      path: ROUTES.ACTIVATE.path,
+      name: ROUTES.ACTIVATE.name,
       component: ActivateView
     },
     // Products
     {
-      path: ROUTES.quotes.path,
-      name: ROUTES.quotes.name,
+      path: ROUTES.QUOTES.path,
+      name: ROUTES.QUOTES.name,
       component: QuotesView,
-      meta: ROUTES.dashboard.meta
+      meta: ROUTES.QUOTES.meta
     },
     {
-      path: ROUTES.giphies.path,
-      name: ROUTES.giphies.name,
+      path: ROUTES.GIPHIES.path,
+      name: ROUTES.GIPHIES.name,
       component: GiphiesView,
-      meta: ROUTES.dashboard.meta
+      meta: ROUTES.GIPHIES.meta
     },
     {
-      path: ROUTES.imageToText.path,
-      name: ROUTES.imageToText.name,
+      path: ROUTES.IMAGE_TO_TEXT.path,
+      name: ROUTES.IMAGE_TO_TEXT.name,
       component: ImageToTextView,
-      meta: ROUTES.dashboard.meta
+      meta: ROUTES.IMAGE_TO_TEXT.meta
     },
     // Dashboard
     {
-      path: ROUTES.dashboard.path,
-      name: ROUTES.dashboard.name,
+      path: ROUTES.DASHBOARD.path,
+      name: ROUTES.DASHBOARD.name,
       component: DashboardView,
-      meta: ROUTES.dashboard.meta
+      meta: ROUTES.DASHBOARD.meta
     },
     {
-      path: ROUTES.apiKey.path,
-      name: ROUTES.apiKey.name,
+      path: ROUTES.API_KEY.path,
+      name: ROUTES.API_KEY.name,
       component: ApiKeyView,
-      meta: ROUTES.apiKey.meta
+      meta: ROUTES.API_KEY.meta
     },
     {
-      path: ROUTES.testApi.path,
-      name: ROUTES.testApi.name,
+      path: ROUTES.TEST_API.path,
+      name: ROUTES.TEST_API.name,
       component: TestApiView,
-      meta: ROUTES.testApi.meta
+      meta: ROUTES.TEST_API.meta
     },
+    // Settings
     {
-      path: ROUTES.settings.path,
-      name: ROUTES.settings.name,
+      path: ROUTES.SETTINGS.path,
+      name: ROUTES.SETTINGS.name,
       component: ProfileView,
-      meta: ROUTES.settings.meta
+      meta: ROUTES.SETTINGS.meta
     },
     {
-      path: ROUTES.profile.path,
-      name: ROUTES.profile.name,
+      path: ROUTES.PROFILE.path,
+      name: ROUTES.PROFILE.name,
       component: ProfileView,
-      meta: ROUTES.profile.meta
+      meta: ROUTES.PROFILE.meta
     },
     {
-      path: ROUTES.account.path,
-      name: ROUTES.account.name,
+      path: ROUTES.ACCOUNT.path,
+      name: ROUTES.ACCOUNT.name,
       component: AccountView,
-      meta: ROUTES.account.meta
+      meta: ROUTES.ACCOUNT.meta
     },
     {
-      path: ROUTES.appearance.path,
-      name: ROUTES.appearance.name,
+      path: ROUTES.APPEARANCE.path,
+      name: ROUTES.APPEARANCE.name,
       component: AppearanceView,
-      meta: ROUTES.appearance.meta
+      meta: ROUTES.APPEARANCE.meta
     },
     {
-      path: ROUTES.notifications.path,
-      name: ROUTES.notifications.name,
+      path: ROUTES.NOTIFICATIONS.path,
+      name: ROUTES.NOTIFICATIONS.name,
       component: NotificationsView,
-      meta: ROUTES.notifications.meta
+      meta: ROUTES.NOTIFICATIONS.meta
     },
     {
-      path: ROUTES.display.path,
-      name: ROUTES.display.name,
+      path: ROUTES.DISPLAY.path,
+      name: ROUTES.DISPLAY.name,
       component: DisplayView,
-      meta: ROUTES.display.meta
+      meta: ROUTES.DISPLAY.meta
     }
   ]
 })
@@ -184,22 +185,22 @@ router.beforeEach(async (to, from, next) => {
 
   // if user is not authenticated and auth is required, redirect to /login route
   if (to.meta.requiresAuth && !isAuthenticated()) {
-    next(ROUTES.login.path)
+    next(ROUTES.LOGIN.path)
   }
 
   // if user is authenticated and route is /login /reset-password or /register, redirect to /dashboard route
   else if (to.meta.authRoute && isAuthenticated()) {
-    next(ROUTES.dashboard.path)
+    next(ROUTES.DASHBOARD.path)
   }
 
   // if user is authenticated but not activated, redirect to /activate route
   else if (to.meta.requiresAuth && isAuthenticated() && !userStore.isUserConfirmed) {
-    next(ROUTES.activate.path)
+    next(ROUTES.ACTIVATE.path)
   }
 
   // if path is /settings then redirect to /settings/profile
-  else if (to.path === ROUTES.settings.path) {
-    next(ROUTES.profile.path)
+  else if (to.path === ROUTES.SETTINGS.path) {
+    next(ROUTES.PROFILE.path)
   } else {
     // User is authenticated or the route doesn't require authentication, proceed
     next()

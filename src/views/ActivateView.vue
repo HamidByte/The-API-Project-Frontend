@@ -31,7 +31,7 @@ const email = ref('')
 
 onMounted(async () => {
   if (!isAuthenticated()) {
-    router.push(ROUTES.login.path)
+    router.push(ROUTES.LOGIN.path)
   } else {
     await isUserConfirmed()
   }
@@ -44,7 +44,7 @@ const isUserConfirmed = async () => {
 
     // Redirect to /dashboard after 3 seconds
     setTimeout(() => {
-      router.push(ROUTES.dashboard.path)
+      router.push(ROUTES.DASHBOARD.path)
     }, 3000)
   } else {
     activationStatus.value = false
@@ -70,7 +70,7 @@ const confirmUserViaLink = async () => {
 
     // Redirect to /dashboard after 3 seconds
     setTimeout(() => {
-      router.push(ROUTES.dashboard.path)
+      router.push(ROUTES.DASHBOARD.path)
     }, 3000)
   } catch (error) {
     activationStatus.value = false
@@ -98,7 +98,7 @@ const confirmUserViaCode = async () => {
 
     // Redirect to /dashboard after 3 seconds
     setTimeout(() => {
-      router.push(ROUTES.dashboard.path)
+      router.push(ROUTES.DASHBOARD.path)
     }, 3000)
   } catch (error) {
     activationStatus.value = false
@@ -144,7 +144,7 @@ const resendActivationEmail = async () => {
           <div class="space-y-1"></div>
         </CardContent>
         <CardFooter class="flex justify-center">
-          <Button type="submit" @click="router.push(ROUTES.dashboard.path)">
+          <Button type="submit" @click="router.push(ROUTES.DASHBOARD.path)">
             Go to Dashboard
           </Button>
         </CardFooter>
