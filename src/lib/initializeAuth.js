@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 import { useUserStore } from '@/stores'
 
 export const setAuthentication = (userId) => {
@@ -17,9 +17,9 @@ export const setAuthentication = (userId) => {
 export const isAuthenticated = () => {
   // Check if user is authenticated (example: check sessionStorage, localStorage or cookies)
   const userString = localStorage.getItem('user')
-  const connectSidCookie = Cookies.get('connect.sid')
+  // const connectSidCookie = Cookies.get('connect.sid')
 
-  if (userString && connectSidCookie) {
+  if (userString) {
     // Parse the user object from the stored string
     const user = JSON.parse(userString)
 
@@ -44,5 +44,5 @@ export const clearAuthentication = () => {
   localStorage.removeItem('token')
 
   // Clear the cookies
-  Cookies.remove('connect.sid')
+  // Cookies.remove('connect.sid')
 }

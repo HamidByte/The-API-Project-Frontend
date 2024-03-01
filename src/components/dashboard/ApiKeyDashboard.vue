@@ -75,7 +75,7 @@ const getTokenExpirationDate = async () => {
 //   try {
 //     const result = await api.accessToken.getAccessToken()
 
-//     apiKey.value = result.apiKey.token
+//     apiKey.value = result.token
 //     userStore.setApiKey(apiKey.value)
 //   } catch (error) {
 //     toast({
@@ -106,7 +106,7 @@ const fetchGenerateApiKey = async () => {
     try {
       const result = await api.accessToken.generateApiKey(tokenExpirationInSeconds.value)
 
-      apiKey.value = result.apiKey.token
+      apiKey.value = result.token
       setAccessToken()
 
       toast({

@@ -7,10 +7,10 @@ export const initializeAccessToken = async () => {
   const userStore = useUserStore()
 
   try {
-    const apiKey = await api.accessToken.generateApiKey(tokenExpirationInSeconds)
-    userStore.setApiKey(apiKey.apiKey.token)
+    const result = await api.accessToken.generateApiKey(tokenExpirationInSeconds)
+    userStore.setApiKey(result.token)
 
-    localStorage.setItem('token', JSON.stringify(apiKey.apiKey.token))
+    localStorage.setItem('token', JSON.stringify(result.token))
   } catch (error) {
     console.error(error)
     // toast({
@@ -26,11 +26,11 @@ export const setAccessToken = async () => {
 
   try {
     if (!userStore.apiKey || !getAccessToken()) {
-      const apiKey = await api.accessToken.getAccessToken()
+      const result = await api.accessToken.getAccessToken()
 
-      userStore.setApiKey(apiKey.apiKey.token)
+      userStore.setApiKey(result.token)
 
-      localStorage.setItem('token', JSON.stringify(apiKey.apiKey.token))
+      localStorage.setItem('token', JSON.stringify(result.token))
     }
   } catch (error) {
     console.error(error)

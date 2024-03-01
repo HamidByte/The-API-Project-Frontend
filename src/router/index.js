@@ -3,6 +3,8 @@ import { isAuthenticated } from '@/lib/initializeAuth'
 import { useUserStore } from '@/stores'
 import api from '@/api'
 import * as ROUTES from '@/lib/definitions/routes/main'
+import { clearAuthentication } from '@/lib/initializeAuth'
+import { clearAccessToken } from '@/lib/initializeStorage'
 import HomeView from '@/views/HomeView.vue'
 
 // Products
@@ -180,6 +182,13 @@ router.beforeEach(async (to, from, next) => {
       userStore.setUser(userData)
     } catch (error) {
       console.error(error)
+
+      // Logout
+      clearAuthentication()
+      clearAccessToken()
+
+      // Redirect to the login page
+      router.push(ROUTES.LOGIN.path)
     }
   }
 
