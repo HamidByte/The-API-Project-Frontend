@@ -19,7 +19,7 @@ import ProductCard from '@/components/products/ProductCard.vue'
     </ProductCard>
 
     <ProductCard
-      title="Random Quotes API"
+      title="Random Quotes"
       description="Provides random quotes, search quotes, get random quote by ID, search by category, and
             search by author."
       :disabled="false"
@@ -31,7 +31,7 @@ import ProductCard from '@/components/products/ProductCard.vue'
     </ProductCard>
 
     <ProductCard
-      title="Random Giphies API"
+      title="Random Giphies"
       description="Provides random giphies, search giphies, get giphy by ID, and get giphy by Gif ID."
       :disabled="false"
       :routePath="ROUTES.GIPHIES.path"
@@ -42,7 +42,7 @@ import ProductCard from '@/components/products/ProductCard.vue'
     </ProductCard>
 
     <ProductCard
-      title="Mockup API"
+      title="Mockup JSON"
       description="Generate massive amounts of mockup data for testing and development."
       status="Coming Soon"
       :disabled="true"

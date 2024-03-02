@@ -45,7 +45,7 @@ defineProps(['title', 'description', 'status', 'disabled', 'routePath'])
             :disabled="disabled"
             @click="router.push(routePath)"
           >
-            Go to API
+            Go
           </Button>
         </div>
       </CardContent>
