@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useUserStore } from '@/stores'
-import { setAccessToken, clearAccessToken } from '@/lib/initializeStorage'
+import { updateAccessToken, setAccessToken, clearAccessToken } from '@/lib/initializeStorage'
 import api from '@/api'
 
 import { Input } from '@/components/ui/input'
@@ -31,7 +31,7 @@ onMounted(async () => {
     apiKey.value = userStore.apiKey
   } else {
     // await fetchApiKey()
-    await setAccessToken()
+    await updateAccessToken()
     apiKey.value = userStore.apiKey
   }
 })
@@ -107,7 +107,7 @@ const fetchGenerateApiKey = async () => {
       const result = await api.accessToken.generateApiKey(tokenExpirationInSeconds.value)
 
       apiKey.value = result.token
-      setAccessToken()
+      setAccessToken(result.token)
 
       toast({
         title: 'Hooray! Operation Successful!',

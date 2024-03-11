@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import { setAuthentication } from '@/lib/initializeAuth'
 
-import { setAccessToken } from '@/lib/initializeStorage'
+import { updateAccessToken } from '@/lib/initializeStorage'
 import { initializeAccessToken } from '@/lib/initializeStorage'
 import { BASE_URL_SERVER } from '@/config'
 
@@ -53,7 +53,7 @@ export const loginUser = async (email, password) => {
     // Store userId in localStorage
     setAuthentication(response.data.uuid)
     // Store token in localStorage
-    await setAccessToken()
+    await updateAccessToken()
 
     return response.data
   } catch (error) {
@@ -162,20 +162,23 @@ export const getUser = async () => {
   }
 }
 
-export const getIsUserActive = async () => {
+export const logoutUser = async () => {
   try {
-    const response = await axios.get(`${BASE_URL_SERVER}/is-user-active`, {
+    const response = await axios.get(`${BASE_URL_SERVER}/logout`, {
       withCredentials: true
     })
 
-    return response.data
+    if (response.status === 200) {
+      return response.data
+    } else {
+      console.error('Unexpected status during logout:', response.status)
+      throw new Error('Logout failed: An unexpected status during logout')
+    }
   } catch (error) {
     // If the response has an error message, include it in the error object
     if (error.response && error.response.data && error.response.data.error) {
       throw error.response.data.error
     }
-    throw new Error(
-      'An unexpected error occurred during fetching user activation status. Please try again later.'
-    )
+    throw new Error('An unexpected error occurred during logout. Please try again later.')
   }
 }

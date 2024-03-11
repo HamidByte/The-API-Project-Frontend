@@ -183,7 +183,7 @@ router.beforeEach(async (to, from, next) => {
     } catch (error) {
       console.error(error)
 
-      // Logout
+      // Clear localStorage
       clearAuthentication()
       clearAccessToken()
 

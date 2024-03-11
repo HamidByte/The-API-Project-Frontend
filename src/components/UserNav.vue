@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
+import api from '@/api'
 import { clearAuthentication } from '@/lib/initializeAuth'
 import { clearAccessToken } from '@/lib/initializeStorage'
 import * as ROUTES from '@/lib/definitions/routes/main'
@@ -22,6 +23,9 @@ import {
   //   DropdownMenuShortcut,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+
+import { useToast } from '@/components/ui/toast/use-toast'
+const { toast } = useToast()
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -78,12 +82,29 @@ const initials = computed(() => {
   }
 })
 
-const logout = () => {
-  clearAuthentication()
-  clearAccessToken()
+const logout = async () => {
+  try {
+    const result = await api.user.logoutUser()
 
-  // Redirect to the login page
-  router.push(ROUTES.LOGIN.path)
+    toast({
+      title: 'See you soon :)',
+      description: result.message
+    })
+
+    // Clear localStorage
+    clearAuthentication()
+    clearAccessToken()
+
+    // Redirect to the login page
+    router.push(ROUTES.LOGIN.path)
+  } catch (error) {
+    // Logout failed
+    toast({
+      title: 'Uh oh! Something went wrong.',
+      description: error,
+      variant: 'destructive'
+    })
+  }
 }
 </script>
 
