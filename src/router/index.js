@@ -12,6 +12,7 @@ import ProductsView from '@/views/ProductsView.vue'
 import QuotesView from '@/views/products/QuotesView.vue'
 import GiphiesView from '@/views/products/GiphiesView.vue'
 import ImageToTextView from '@/views/products/ImageToTextView.vue'
+import PunjabVehiclesView from '@/views/products/PunjabVehiclesView.vue'
 
 // Other Public Routes
 import PricingView from '@/views/PricingView.vue'
@@ -92,25 +93,6 @@ const router = createRouter({
       name: ROUTES.ACTIVATE.name,
       component: ActivateView
     },
-    // Products
-    {
-      path: ROUTES.QUOTES.path,
-      name: ROUTES.QUOTES.name,
-      component: QuotesView,
-      meta: ROUTES.QUOTES.meta
-    },
-    {
-      path: ROUTES.GIPHIES.path,
-      name: ROUTES.GIPHIES.name,
-      component: GiphiesView,
-      meta: ROUTES.GIPHIES.meta
-    },
-    {
-      path: ROUTES.IMAGE_TO_TEXT.path,
-      name: ROUTES.IMAGE_TO_TEXT.name,
-      component: ImageToTextView,
-      meta: ROUTES.IMAGE_TO_TEXT.meta
-    },
     // Dashboard
     {
       path: ROUTES.DASHBOARD.path,
@@ -166,6 +148,31 @@ const router = createRouter({
       name: ROUTES.DISPLAY.name,
       component: DisplayView,
       meta: ROUTES.DISPLAY.meta
+    },
+    // Products
+    {
+      path: ROUTES.QUOTES.path,
+      name: ROUTES.QUOTES.name,
+      component: QuotesView,
+      meta: ROUTES.QUOTES.meta
+    },
+    {
+      path: ROUTES.GIPHIES.path,
+      name: ROUTES.GIPHIES.name,
+      component: GiphiesView,
+      meta: ROUTES.GIPHIES.meta
+    },
+    {
+      path: ROUTES.IMAGE_TO_TEXT.path,
+      name: ROUTES.IMAGE_TO_TEXT.name,
+      component: ImageToTextView,
+      meta: ROUTES.IMAGE_TO_TEXT.meta
+    },
+    {
+      path: ROUTES.PUNJAB_VEHICLES.path,
+      name: ROUTES.PUNJAB_VEHICLES.name,
+      component: PunjabVehiclesView,
+      meta: ROUTES.PUNJAB_VEHICLES.meta
     }
   ]
 })

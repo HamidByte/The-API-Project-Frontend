@@ -29,25 +29,6 @@ export const ACTIVATE = {
   name: 'activate'
 }
 
-// Products
-export const QUOTES = {
-  path: '/quotes',
-  name: 'quotes',
-  meta: { requiresAuth: true }
-}
-
-export const GIPHIES = {
-  path: '/giphies',
-  name: 'giphies',
-  meta: { requiresAuth: true }
-}
-
-export const IMAGE_TO_TEXT = {
-  path: '/image-to-text',
-  name: 'imageToText',
-  meta: { requiresAuth: true }
-}
-
 // Dashboard
 export const DASHBOARD = {
   path: '/dashboard',
@@ -94,5 +75,27 @@ export const NOTIFICATIONS = {
 export const DISPLAY = {
   path: '/settings/display',
   name: 'display',
+  meta: { requiresAuth: true }
+}
+
+// Products
+export const QUOTES = {
+  path: '/quotes',
+  name: 'quotes',
+  meta: { requiresAuth: true }
+}
+export const GIPHIES = {
+  path: '/giphies',
+  name: 'giphies',
+  meta: { requiresAuth: true }
+}
+export const IMAGE_TO_TEXT = {
+  path: '/image-to-text',
+  name: 'imageToText',
+  meta: { requiresAuth: true }
+}
+export const PUNJAB_VEHICLES = {
+  path: '/pakistan/punjab-vehicles',
+  name: 'punjabVehicles',
   meta: { requiresAuth: true }
 }
